@@ -1,16 +1,31 @@
 #include <iostream>
+#include <stack>
+#include <cmath>
 
-void add_task(int data) {
-	while ((data / 2) > 0) {
-		std::cout << data % 2;
-		data = data / 2;
+void add_task(int b, int data) {	
+	std::stack<int> q = std::stack<int>();
+	while (data > b) {
+		int temp = data % b;
+		if ((temp > 9) && (temp < 16)) {
+			
+		}
+		q.push(temp);
+		data = data / b;		
+	}
+	std::cout << data;
+	while(!q.empty())
+	{
+		std::cout << q.top();
+		q.pop();
 	}
 }
+
+using namespace std;
 
 int main() {
 	double x;
 	double y;
-	double r;
+	double r;	
 
 	std::cout << "Enter r: ";
 	std::cin >> r;	
@@ -29,7 +44,9 @@ int main() {
 	}	
 	std::cout << std::endl;
 
-	add_task(8, 31);
+	
+
+	add_task(2,31);
 
 	return 0;
 }
