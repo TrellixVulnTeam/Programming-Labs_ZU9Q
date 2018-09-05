@@ -2,22 +2,52 @@
 #include <stack>
 #include <cmath>
 
-void add_task(int b, int data) {	
+void add_task1(int b, int data) {	
 	std::stack<int> q = std::stack<int>();
 	while (data > b) {
 		int temp = data % b;
-		if ((temp > 9) && (temp < 16)) {
-			
-		}
 		q.push(temp);
 		data = data / b;		
 	}
 	std::cout << data;
 	while(!q.empty())
 	{
-		std::cout << q.top();
+		auto temp = q.top();
+		if ((temp > 9) && (temp < 16)) {
+			switch (temp)
+			{
+			case 10:
+				std::cout << "A";
+				break;
+			case 11:
+				std::cout << "B";
+				break;
+			case 12:
+				std::cout << "C";
+				break;
+			case 13:
+				std::cout << "D";
+				break;
+			case 14:
+				std::cout << "E";
+				break;
+			case 15:
+				std::cout << "F";
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			std::cout << temp;
+		}	
 		q.pop();
 	}
+}
+
+void add_task2(int number) {
+
 }
 
 using namespace std;
@@ -46,7 +76,7 @@ int main() {
 
 	
 
-	add_task(2,31);
+	add_task(16,31);
 
 	return 0;
 }
