@@ -5,11 +5,11 @@
 
 extern void add_task1(int b, int data);
 
-extern void add_task2(std::vector<int> data, int b);
+extern void add_task2(int b, std::vector<int> data);
 
 using namespace std;
 
-int main() {
+int main() {	
 	double x;
 	double y;
 	double r;	
@@ -21,7 +21,7 @@ int main() {
 	std::cout << "Enter y: ";
 	std::cin >> y;
 
-	if ((x == y)&&(x == r/2))
+	if ((std::abs(x) == std::abs(y))&&(std::abs(x) == r/2))
 	{
 		std::cout << "Yes";
 	}
@@ -38,20 +38,24 @@ int main() {
 	add_task1(16,1000);
 	std::vector<int> ar1 = { 1,1,0,0,1 };
 	std::vector<int> ar2 = { 0,1,0,0,0 };
-	add_task2(ar1, 2);
-	add_task2(ar2, 2);
+	add_task2(2, ar1);
+	add_task2(2, ar2);
 
 	return 0;
 }
 
+//Перевод 10 в b
+//b - показатель системы счисления, data - число для перевода
 void add_task1(int b, int data) {
 	std::stack<int> q = std::stack<int>();
+	//Записуем остатки от деления в стек
 	while (data > b) {
 		int temp = data % b;
 		q.push(temp);
 		data = data / b;
 	}
 	std::cout << data;
+	//Выводим в обратном порядке и получаем число в нужной системе счисления
 	while (!q.empty())
 	{
 		auto temp = q.top();
@@ -89,7 +93,9 @@ void add_task1(int b, int data) {
 	std::cout << std::endl;
 }
 
-void add_task2(std::vector<int> data, int b)
+//Перевод b в 10
+//b - показатель системы счисления, data - контейнер, поэлементно содержащий цифры числа
+void add_task2(int b, std::vector<int> data)
 {
 	int sum = 0;
 	for (int i = 0; i < data.size(); i++) {
