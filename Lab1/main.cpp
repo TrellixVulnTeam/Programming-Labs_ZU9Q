@@ -21,7 +21,9 @@ int main() {
 	std::cout << "Enter y: ";
 	std::cin >> y;
 
-	if ((std::abs(x) == std::abs(y))&&(std::abs(x) == r/2))
+	
+
+	if (std::sqrt(x*x + y*y) == std::sqrt(2)*r / 2)
 	{
 		std::cout << "Yes";
 	}
@@ -70,7 +72,7 @@ void add_task1(int b, int data) {
 		auto temp = q.top();
 		if ((temp > 9) && (temp < 16)) {
 			switch (temp)
-			{
+			{			
 			case 10:
 				std::cout << "A";
 				break;
