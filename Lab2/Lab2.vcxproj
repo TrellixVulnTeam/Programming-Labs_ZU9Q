@@ -139,11 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="alt_task2.cpp" />
+    <ClCompile Include="task1.cpp" />
+    <ClCompile Include="task2.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="task3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Altrernative.h" />
+    <ClInclude Include="Task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
