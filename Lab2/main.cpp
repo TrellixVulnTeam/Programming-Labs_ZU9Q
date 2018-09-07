@@ -1,13 +1,46 @@
 #include <iostream>
+#include <vector>
 #include "Task.h"
 
 int main() {
 
-	task1();
-	
-	task2();
-	
+	std::cout << "Task 1" << std::endl;
+	task1();	
+	std::cout << std::endl;
+
+	std::cout << "Task2" << std::endl;
+	task2();	
+	std::cout << std::endl;
+
 	//alt_task2();
+	//std::cout << std::endl;
+
+	std::vector<int> correct = { 5, 8, 4, 2, 3 };
+	std::vector<int> incorrect = { 5, 8, 4, 2, 7 };
+
+	std::cout << "Task3 for correct" << std::endl;
+	task3for(correct);
+	std::cout << std::endl;
+
+	std::cout << "Task3 for incorrect" << std::endl;
+	task3for(incorrect);
+	std::cout << std::endl;
+
+	std::cout << "Task3 while correct" << std::endl;
+	task3while(correct);
+	std::cout << std::endl;
+
+	std::cout << "Task3 while incorrect" << std::endl;
+	task3while(incorrect);
+	std::cout << std::endl;
+
+	/*std::cout << "Task3 alt_while correct" << std::endl;
+	alt_task3while(correct);
+	std::cout << std::endl;
+
+	std::cout << "Task3 alt_while incorrect" << std::endl;
+	alt_task3while(incorrect);
+	std::cout << std::endl;*/
 
 	return 0;
  }

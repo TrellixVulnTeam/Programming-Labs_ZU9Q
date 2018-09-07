@@ -15,6 +15,8 @@ void task2() {
 	std::cout << "Enter number ";
 	std::cin >> x;
 
+	std::cout << "Result task2: ";
+
 	switch (command)
 	{
 	case '1':
@@ -64,6 +66,6 @@ void alt_task2() {
 	std::cout << "Enter number ";
 	std::cin >> x;
 
-	std::cout << std::pow(x, atoi(c)) << std::endl;
+	std::cout << "Result task2" << std::pow(x, atoi(c)) << std::endl;
 	
 }
