@@ -40,7 +40,17 @@ int main() {
 
 	std::cout << "Task3 alt_while incorrect" << std::endl;
 	alt_task3while(incorrect);
-	std::cout << std::endl;*/
+	std::cout << std::endl;*/	
+
+	long int correct_number = 600006;
+	long int incorrect_number = 350801;
+
+	std::cout << "Task Add correct" << std::endl;
+	add_task(correct_number);
+	std::cout << std::endl;
+
+	std::cout << "Task Add incorrect" << std::endl;
+	add_task(incorrect_number);
 
 	return 0;
  }

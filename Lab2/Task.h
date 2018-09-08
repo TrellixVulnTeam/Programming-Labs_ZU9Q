@@ -11,4 +11,6 @@ extern void task3for(std::vector<int>);
 
 extern void task3while(std::vector<int>);
 
-void alt_task3while(std::vector<int>);
+extern void alt_task3while(std::vector<int>);
+
+extern void add_task(long int);

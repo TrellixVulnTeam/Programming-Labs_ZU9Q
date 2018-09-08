@@ -143,6 +143,7 @@
     <ClCompile Include="task2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="task3.cpp" />
+    <ClCompile Include="task_add.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task.h" />
