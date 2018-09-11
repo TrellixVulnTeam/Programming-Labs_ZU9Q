@@ -16,7 +16,9 @@ int main() {
 	if (task1_Check(x, y))
 		cout << "Result is " << task1_Calculate(x, y) << endl;
 	else
-		cout << "Variable is incorrect";
+		cout << "Variable is incorrect" << endl;
+
+	add_task(4);
 
 	return 0;
 }
