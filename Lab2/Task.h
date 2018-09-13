@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
 
-extern void task1();
+void task1();
 
-extern void task2();
+void task2();
 
-extern void alt_task2();
+void alt_task2();
 
-extern void task3for(std::vector<int>);
+void task3for(std::vector<int>);
 
-extern void task3while(std::vector<int>);
+void task3while(std::vector<int>);
 
-extern void add_task(long int);
+void add_task(long int);

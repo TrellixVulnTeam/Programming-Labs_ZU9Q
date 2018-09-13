@@ -1,11 +1,11 @@
 #pragma once
 
-extern double min_base_task(double**);
+double min_base_task(double**, unsigned int, unsigned int);
 
-extern double prod_base_task(double**);
+double prod_base_task(double**, unsigned int, unsigned int);
 
-extern double sum_medium_task(double**);
+double sum_medium_task(double**, unsigned int);
 
-extern double max_medium_task(double**);
+double max_medium_task(double**, unsigned int);
 
-extern double* grad_hard_task(double**);
+double* grad_hard_task(double**, unsigned int);
