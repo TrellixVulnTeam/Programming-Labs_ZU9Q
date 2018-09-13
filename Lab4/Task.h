@@ -8,4 +8,4 @@ double sum_medium_task(double**, unsigned int);
 
 double max_medium_task(double**, unsigned int);
 
-double* grad_hard_task(double**, unsigned int);
+double** grad_hard_task(double**, unsigned int);
