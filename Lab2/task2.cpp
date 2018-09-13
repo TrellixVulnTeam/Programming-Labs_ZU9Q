@@ -66,6 +66,11 @@ void alt_task2() {
 	std::cout << "Enter number ";
 	std::cin >> x;
 
-	std::cout << "Result task2" << std::pow(x, atoi(c)) << std::endl;
+	try {
+		std::cout << "Result task2" << std::pow(x, atoi(c)) << std::endl;
+	}
+	catch (...) {
+		std::cout << "You enter incorrect command";
+	}
 	
 }

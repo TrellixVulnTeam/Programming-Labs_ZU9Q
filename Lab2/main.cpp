@@ -15,8 +15,8 @@ int main() {
 	//alt_task2();
 	//std::cout << std::endl;
 
-	std::vector<int> correct = { 5, 8, 4, 2, 3 };
-	std::vector<int> incorrect = { 5, 8, 4, 2, 7 };
+	std::vector<int> correct = { 5, 8, 4, 9, 3 };
+	std::vector<int> incorrect = { 5, 8, 4, 2, 7 };	
 
 	std::cout << "Task3 for correct" << std::endl;
 	task3for(correct);
@@ -32,15 +32,7 @@ int main() {
 
 	std::cout << "Task3 while incorrect" << std::endl;
 	task3while(incorrect);
-	std::cout << std::endl;
-
-	/*std::cout << "Task3 alt_while correct" << std::endl;
-	alt_task3while(correct);
-	std::cout << std::endl;
-
-	std::cout << "Task3 alt_while incorrect" << std::endl;
-	alt_task3while(incorrect);
-	std::cout << std::endl;*/	
+	std::cout << std::endl;	
 
 	long int correct_number = 600006;
 	long int incorrect_number = 350801;
