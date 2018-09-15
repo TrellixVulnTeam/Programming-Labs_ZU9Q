@@ -33,4 +33,10 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="test.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="binary.txt" />
+  </ItemGroup>
 </Project>

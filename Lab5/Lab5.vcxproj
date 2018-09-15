@@ -147,6 +147,12 @@
   <ItemGroup>
     <ClInclude Include="Task.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="test.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="binary.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
