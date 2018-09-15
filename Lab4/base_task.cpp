@@ -1,9 +1,9 @@
 double min_base_task(double** matrix, unsigned int m, unsigned int n) {
 	double min = **matrix;
 	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-			if (min > *(*(matrix + i * (m-1)) + j))
-				min = *(*(matrix + i * (m-1)) + j);
+		for (int j = 0; j < n; j++) {			
+			if (min > *(*(matrix + i) + j))
+				min = *(*(matrix + i) + j);
 		}
 	}
 	return min;
