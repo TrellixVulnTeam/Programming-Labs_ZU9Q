@@ -26,7 +26,7 @@ int main() {
 
 	cout << "Min:" << min_base_task(matrix1, m, n) << endl;
 	cout << "Prod:" << prod_base_task(matrix1, m, n) << endl;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < m; i++)
 		delete[] matrix1[i];	
 	delete[] matrix1;
 
