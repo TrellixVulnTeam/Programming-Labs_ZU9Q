@@ -6,8 +6,21 @@
 using namespace std;
 
 int main() {
+	cout << "Base task" << endl;
 
-	cout << endl << "Hard task" << endl;
+	string base = "KPI";
+	cout << "Size of 'KPI': " <<size_base_task(base) << endl;
+
+
+	cout << endl << "Add task" << endl;
+
+	string with = "Hello, my*little friend";
+	string without = "Hello, my little friend";
+	printPart_add_task(with);
+	printPart_add_task(without);
+
+
+	cout << endl << "Add Hard task" << endl;
 
 	ReferenceBook rb;
 

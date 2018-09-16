@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="base_task.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="add_task.cpp" />
     <ClCompile Include="ReferenceBook.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
