@@ -119,6 +119,7 @@
     <ClInclude Include="Task.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="base_task.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ReferenceBook.cpp" />
   </ItemGroup>
