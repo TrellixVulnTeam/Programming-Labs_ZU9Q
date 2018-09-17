@@ -76,15 +76,15 @@ int main() {
 		}
 	}
 
-	cout << matrix3_1[0][0] << endl;
-	cout << matrix3_1[0][1] << endl;
-	cout << matrix3_1[0][2] << endl;
-	cout << matrix3_1[1][0] << endl;
-	cout << matrix3_1[1][1] << endl;
-	cout << matrix3_1[1][2] << endl;
-	cout << matrix3_1[2][0] << endl;	
-	cout << matrix3_1[2][1] << endl;
-	cout << matrix3_1[2][2] << endl;
+	cout << matrix3_1[0][0] << "\t";
+	cout << matrix3_1[0][1] << "\t";
+	cout << matrix3_1[0][2] << "\t" << endl;
+	cout << matrix3_1[1][0] << "\t";
+	cout << matrix3_1[1][1] << "\t";
+	cout << matrix3_1[1][2] << "\t" << endl;
+	cout << matrix3_1[2][0] << "\t";
+	cout << matrix3_1[2][1] << "\t";
+	cout << matrix3_1[2][2] << "\t" << endl;
 	cout << "Sobel20" << endl;
 	auto sobel20 = grad_hard_task(matrix3_1, 20, 20);
 	for (int i = 0; i < 20; i++) {
@@ -96,12 +96,12 @@ int main() {
 
 	cout << endl << "Sobel2000" << endl;
 	auto sobel2000 = grad_hard_task(matrix3_2, 2000, 2000);
-	/*for (int i = 0; i < 2000; i++) {
+	for (int i = 0; i < 2000; i++) {
 		cout << "Row " << i + 1 << endl;
 		for (int j = 0; j < 2000; j++) {
 			cout << sobel2000[i][j] << endl;
 		}
-	}*/
+	}
 	
 	for (int i = 0; i < 20; i++)
 		delete[] matrix3_1[i];	
@@ -112,9 +112,9 @@ int main() {
 	for (int i = 0; i < 2000; i++)
 		delete[] matrix3_2[i];	
 	delete[] matrix3_2;
-	/*for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 20; i++)
 		delete[] sobel2000[i];
-	delete[] sobel2000;*/
+	delete[] sobel2000;
 
 	return 0;
 }

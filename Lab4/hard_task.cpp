@@ -31,9 +31,7 @@ double** grad_hard_task(double** matrix, unsigned int m, unsigned int n) {
 double** grad_horizontal(double** matrix, unsigned int m, unsigned int n) {
 	double **g_h = new double*[m];
 	for (int i = 0; i < m; i++)
-		g_h[i] = new double[n];
-	
-	std::cout << "0,0" << matrix[0][0] << std::endl;
+		g_h[i] = new double[n];		
 
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
