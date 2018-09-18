@@ -6,7 +6,7 @@ typedef unsigned int number;
 struct LinkedTextItem {
 	LinkedTextItem* before;
 	std::string line;
-	LinkedTextItem* past;
+	LinkedTextItem* next;
 };
 
 class LinkedText
@@ -22,7 +22,10 @@ public:
 	void FindLetter(char, number &, number &);
 	number GetLineWithMaxLetterContains(char);
 	void ConsolePrint();
+	std::string GetName();
+	void SetName(std::string);
 private:
-	LinkedTextItem firstItem;	
+	LinkedTextItem *firstItem;
+	LinkedTextItem *endItem;
 };
 
