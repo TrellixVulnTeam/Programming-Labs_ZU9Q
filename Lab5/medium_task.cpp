@@ -22,7 +22,8 @@ bool dump8_medium_task(const char* path) {
 				data2[i] = 1;
 		}				
 		to8(data2);		
-	}	
+	}
+	fclose(file);
 	return true;
 }
 

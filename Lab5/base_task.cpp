@@ -10,10 +10,15 @@ bool sum_base_task(const char* path) {
 		if (output) {
 			output << a + b;
 		}
-		else
+		else {
+			input.close();
 			return false;
+		}
+			
 		return true;
 	}
-	else
+	else {
+		input.close();
 		return false;
+	}		
 }

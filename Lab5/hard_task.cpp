@@ -21,5 +21,6 @@ std::unordered_map<std::string, int> bigramm_hard_task(const char* path) {
 			first = second;
 		}
 	}
+	fclose(file);
 	return bigramm_map;
 }
