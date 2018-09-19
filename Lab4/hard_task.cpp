@@ -14,7 +14,13 @@ double** grad_hard_task(double** matrix, unsigned int m, unsigned int n) {
 
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
-				s[i][j] = std::sqrt(g_h[i][j] * g_h[i][j] + g_v[i][j] * g_v[i][j]);
+			double h = g_h[i][j];
+			double g = g_v[i][j];
+			int temp = (int)std::sqrt(g*g + h * h); //int because color is discrete data
+			if (temp > 255)
+				s[i][j] = 255;
+			else
+				s[i][j] = temp;
 		}
 	}
 
@@ -88,7 +94,7 @@ double** grad_horizontal(double** matrix, unsigned int m, unsigned int n) {
 			else if (i > 0) { //i+1, j-1, j+1 does not exist
 				sum += 2 * matrix[i - 1][j];				
 			}
-			//Another cases has 0 in prod
+			//Another cases has 0 in prod			
 			g_h[i][j] = sum;
 		}
 	}
@@ -155,8 +161,8 @@ double** grad_vertical(double** matrix, unsigned int m, unsigned int n) {
 			else if (j > 0) { //i+1, i-1, j+1 does not exist
 				sum += 2 * matrix[i][j - 1];
 			}
-			//Another cases has in prod 0
-			g_v[i][j] = sum;
+			//Another cases has in prod 0			
+			g_v[i][j] = 255;			
 		}
 	}
 	return g_v;

@@ -57,64 +57,40 @@ int main() {
 
 	cout << endl << "Hard task" << endl;	
 
+	int s = 20;
+
 	srand(time(NULL));
-	double **matrix3_1 = new double*[20];
-	for (int i = 0; i < 20; i++)
-		matrix3_1[i] = new double[20];
-	for (int i = 0; i < 20; i++) {		
-		for (int j = 0; j < 20; j++) {			
-			matrix3_1[i][j] = rand() % 255 + 1;
+	double **matrix3 = new double*[s];
+	for (int i = 0; i < s; i++)
+		matrix3[i] = new double[s];
+	for (int i = 0; i < s; i++) {		
+		for (int j = 0; j < s; j++) {			
+			matrix3[i][j] = rand() % 255 + 1;
 		}
 	}	
-
-	double **matrix3_2 = new double*[2000];
-	for (int i = 0; i < 2000; i++)
-		matrix3_2[i] = new double[2000];
-	for (int i = 0; i < 2000; i++) {
-		for (int j = 0; j < 2000; j++) {
-			matrix3_2[i][j] = 1 + rand() % 255;
-		}
-	}
-
-	cout << matrix3_1[0][0] << "\t";
-	cout << matrix3_1[0][1] << "\t";
-	cout << matrix3_1[0][2] << "\t" << endl;
-	cout << matrix3_1[1][0] << "\t";
-	cout << matrix3_1[1][1] << "\t";
-	cout << matrix3_1[1][2] << "\t" << endl;
-	cout << matrix3_1[2][0] << "\t";
-	cout << matrix3_1[2][1] << "\t";
-	cout << matrix3_1[2][2] << "\t" << endl;
-	cout << "Sobel20" << endl;
-	auto sobel20 = grad_hard_task(matrix3_1, 20, 20);
-	for (int i = 0; i < 20; i++) {
-		cout << "Row " << i + 1 << endl;
-		for (int j = 0; j < 20; j++) {
-			cout << sobel20[i][j] << endl;
-		}
-	}
-
-	cout << endl << "Sobel2000" << endl;
-	auto sobel2000 = grad_hard_task(matrix3_2, 2000, 2000);
-	for (int i = 0; i < 2000; i++) {
-		cout << "Row " << i + 1 << endl;
-		for (int j = 0; j < 2000; j++) {
-			cout << sobel2000[i][j] << endl;
-		}
-	}
 	
-	for (int i = 0; i < 20; i++)
-		delete[] matrix3_1[i];	
-	delete[] matrix3_1;
-	for (int i = 0; i < 20; i++)
-		delete[] sobel20[i];
-	delete[] sobel20;
-	for (int i = 0; i < 2000; i++)
-		delete[] matrix3_2[i];	
-	delete[] matrix3_2;
-	for (int i = 0; i < 20; i++)
-		delete[] sobel2000[i];
-	delete[] sobel2000;
+	cout << "Sobel" + s << endl;
+	for (int i = 0; i < s; i++) {
+		cout << "Row " << i + 1 << endl;
+		for (int j = 0; j < s; j++) {
+			cout << matrix3[i][j] << endl;
+		}
+	}
+	cout << "Result" << endl;
+	auto sobel = grad_hard_task(matrix3, s, s);
+	for (int i = 0; i < s; i++) {
+		cout << "Row " << i + 1 << endl;
+		for (int j = 0; j < s; j++) {
+			cout << sobel[i][j] << endl;
+		}
+	}
+		
+	for (int i = 0; i < s; i++)
+		delete[] matrix3[i];	
+	delete[] matrix3;
+	for (int i = 0; i < s; i++)
+		delete[] sobel[i];
+	delete[] sobel;	
 
 	return 0;
 }
