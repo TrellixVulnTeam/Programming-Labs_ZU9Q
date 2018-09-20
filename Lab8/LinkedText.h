@@ -14,8 +14,8 @@ class LinkedText
 public:
 	LinkedText();
 	~LinkedText();
-	void Save(std::string);
-	void Load(std::string);
+	void Save(const char*);
+	void Load(const char*);
 	void AddLine(std::string);
 	void CopyLine(number, number);
 	void RemoveLine(number);

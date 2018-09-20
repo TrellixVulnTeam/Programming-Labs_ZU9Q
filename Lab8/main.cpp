@@ -10,10 +10,15 @@ int main() {
 	text.CopyLine(2, 1);
 	text.CopyLine(2, 1);
 	text.RemoveLine(3);
-	text.SetName("Test text");
+	text.SetName("Test text");	
+	text.Save("text.txt");
 
 	cout << "Text name: " << text.GetName() << endl;
 	text.ConsolePrint();
+
+	LinkedText text2;
+	text2.Load("text.txt");
+	text2.ConsolePrint();
 
 	system("pause");
 	return 0;

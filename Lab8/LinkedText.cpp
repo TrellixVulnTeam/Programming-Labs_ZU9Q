@@ -1,6 +1,6 @@
 #include "LinkedText.h"
 #include <iostream>
-
+#include <fstream>
 
 LinkedText::LinkedText()
 {
@@ -24,12 +24,44 @@ LinkedText::~LinkedText()
 	delete endItem;
 }
 
-void LinkedText::Save(std::string path)
+void LinkedText::Save(const char* path)
 {
+	std::ofstream stream(path);
+	LinkedTextItem *current = firstItem;
+	while (current != endItem) {
+		stream << current->line << std::ends;
+		current = current->next;
+	}
+	stream << endItem->line;
+	stream.close();
 }
 
-void LinkedText::Load(std::string path)
+void LinkedText::Load(const char* path)
 {
+	const int max_size = 256;	
+	FILE* file;
+	fopen_s(&file, path, "r");
+	char line[max_size];
+	std::string temp;
+	while (!feof(file)) {
+		fgets(line, max_size, file);
+		temp = line;
+		size_t l = temp.find_last_of(" /0/n");
+		temp = temp.substr(0, l);
+		l = temp.find_first_of("#");
+		temp = temp.substr(0, l);		
+		AddLine(line);
+	}
+	if (firstItem->next != endItem)
+	{
+		firstItem->line = firstItem->next->line;
+		RemoveLine(1);		
+	}
+	if (endItem->before->line.empty()) {
+		endItem->before->before->next = endItem;		
+		delete endItem->before;
+	}
+	fclose(file);
 }
 
 void LinkedText::AddLine(std::string line)
