@@ -28,8 +28,8 @@ void LinkedText::Save(const char* path)
 {
 	std::ofstream stream(path);
 	LinkedTextItem *current = firstItem;
-	while (current != endItem) {
-		stream << current->line << std::ends;
+	while (current != endItem) {		
+		stream << current->line << "\n";
 		current = current->next;
 	}
 	stream << endItem->line;
@@ -46,20 +46,26 @@ void LinkedText::Load(const char* path)
 	while (!feof(file)) {
 		fgets(line, max_size, file);
 		temp = line;
-		size_t l = temp.find_last_of(" /0/n");
-		temp = temp.substr(0, l);
-		l = temp.find_first_of("#");
+		size_t l = temp.find_last_of("\n\0");
 		temp = temp.substr(0, l);		
-		AddLine(line);
+		l = temp.find_first_of("#");
+		if (l <= temp.size()) {
+			temp = temp.substr(0, l);
+			AddLine(temp);
+			break;
+		}		
+		AddLine(temp);
 	}
 	if (firstItem->next != endItem)
 	{
 		firstItem->line = firstItem->next->line;
-		RemoveLine(1);		
+		RemoveLine(1);	
 	}
 	if (endItem->before->line.empty()) {
-		endItem->before->before->next = endItem;		
+		auto before_before = endItem->before->before;
+		before_before->next = endItem;		
 		delete endItem->before;
+		endItem->before = before_before;
 	}
 	fclose(file);
 }

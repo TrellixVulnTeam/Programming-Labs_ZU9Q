@@ -18,6 +18,7 @@ int main() {
 
 	LinkedText text2;
 	text2.Load("text.txt");
+	cout << "Text2 name: " << text2.GetName() << endl;
 	text2.ConsolePrint();
 
 	system("pause");
