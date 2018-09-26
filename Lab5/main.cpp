@@ -15,7 +15,7 @@ int main() {
 		cout << "Error in medium task" << endl;
 
 	cout << endl << "Hard task" << endl << endl;
-	const char* p = "E:/Repositories/Labs/x64/Debug/Lab7.exe";
+	const char* p = "E:/Repositories/Labs/x64/Debug/Lab7.exe";	
 	
 	auto map = bigramm_hard_task(p);
 	for (auto it = map.begin(); it != map.end(); it++) {

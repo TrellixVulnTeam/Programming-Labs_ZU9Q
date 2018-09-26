@@ -9,16 +9,14 @@ std::unordered_map<std::string, int> bigramm_hard_task(const char* path) {
 	std::unordered_map<std::string, int> bigramm_map;
 	std::ifstream file(path, std::ios::binary);
 	if (file) {
-		unsigned char data;						
-		long long int bits_c = 0;
-		while (!file.eof()) {
-			bits_c += 1;
+		unsigned char data;								
+		while (!file.eof()) {			
 			file >> data;
 			auto bits = GetBinary(data);
 			int f = bits.top();
 			int s = 0;
 			bits.pop();
-			for (int i = 0; i < 7; i++){
+			while(!bits.empty()){
 				s = bits.top();
 				bits.pop();
 				if (f == 0 && s == 0) {
@@ -35,8 +33,7 @@ std::unordered_map<std::string, int> bigramm_hard_task(const char* path) {
 				}					
 				f = s;
 			}			
-		}
-		bits_c = bits_c;
+		}		
 	}
 	file.close();
 	return bigramm_map;

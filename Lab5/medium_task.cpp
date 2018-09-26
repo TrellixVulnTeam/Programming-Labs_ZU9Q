@@ -1,38 +1,37 @@
 #include <cstdio>
 #include <iostream>
+#include <stack>
 
-void to8(unsigned int* data);
+void to8(unsigned int data);
 
 bool dump8_medium_task(const char* path) {
-	FILE* file = std::fopen(path, "r");
+	FILE* file = std::fopen(path, "rb");
 	if (!file)
-		return false;	
-	int i = 0;
+		return false;		
 	bool is_end = false;
-	char data[4];
-	while ((data[0] = getc(file)) != EOF)  {
-		i++;		
-		unsigned int data2[4];		
-		std::fread(data+1, 1, 3, file);
-		std::cout << "Result:" << std::endl;
-		for (int i = 0; i < 4; i++) {
-			if (data[i] == '0')
-				data2[i] = 0;
-			else if (data[i] == '1')
-				data2[i] = 1;
-		}				
-		to8(data2);		
+	char data;
+	std::cout << "Result:" << std::endl;
+	data = fgetc(file);
+	while (data != EOF)  {
+		to8(data);		
+		data = fgetc(file);
 	}
 	fclose(file);
 	return true;
 }
 
-void to8(unsigned int* data) {
-	if (data[0] == 1)
-		std::cout << "1";
-	int sum = 0;
-	for (int i = 1; i < 4; i++) {
-		sum += data[i] * pow(2, 4 - i - 1);
+void to8(unsigned int data) {
+	std::stack<int> q = std::stack<int>();
+	while (data >= 8) {
+		int temp = data % 8;
+		q.push(temp);
+		data = data / 8;
 	}
-	std::cout << sum << std::endl;
+	q.push(data);	
+	while (!q.empty())
+	{
+		std::cout << q.top();
+		q.pop();
+	}
 }
+
