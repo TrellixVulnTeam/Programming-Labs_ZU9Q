@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-int size_base_task(std::string);
+bool base_task(std::string, std::string);
 
 void printPart_add_task(std::string);
 

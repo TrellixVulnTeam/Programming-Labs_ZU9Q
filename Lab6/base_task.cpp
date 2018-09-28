@@ -2,8 +2,8 @@
 #include <vector>
 #include <array>
 
-int size_base_task(std::string string) {
-	return string.size();
+bool base_task(std::string string1, std::string string2) {
+	return (string1 == string2) && (string1.size() == string2.size());
 }
 
 double lab4min_base_task(std::vector<std::vector<double>> matrix)
