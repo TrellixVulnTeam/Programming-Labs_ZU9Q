@@ -6,10 +6,10 @@ typedef unsigned int number;
 struct LinkedTextItem {
 	LinkedTextItem* before;
 	std::string line;
-	LinkedTextItem* next;
+	LinkedTextItem* next;	
 };
 
-class LinkedText
+struct LinkedText
 {
 public:
 	LinkedText();
