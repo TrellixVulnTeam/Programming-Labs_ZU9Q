@@ -26,9 +26,9 @@ double func(double a, double x) {
 	double p1, p2, p2_1, p2_2;
 	const char* e1 = "Incorrect part 1";
 	const char* e2 = "Incorrect part 2";
-	const char* e2_1 = "a-x < 0 and (2x-3)^3 > 0";
-	const char* e2_2 = "a-x > 0 and (2x-3)^3 < 0";
-	const char* e2_3 = "(2x - 3) ^ 3 < 0";
+	const char* e2_1 = "a-x < 0 and (2x-a)^3 > 0";
+	const char* e2_2 = "a-x > 0 and (2x-a)^3 < 0";
+	const char* e2_3 = "(2x - a) ^ 3 = 0";
 	try {
 		try {
 			if ((a - 2) == 0)
@@ -41,7 +41,7 @@ double func(double a, double x) {
 		}
 		try {
 			p2_1 = pow((a - x), 5);
-			p2_2 = pow((2 * x - 3), 3);
+			p2_2 = pow((2 * x - a), 3);
 			if (p2_1 < 0 && p2_2 > 0)
 				throw e2_1;
 			if (p2_1 > 0 && p2_2 < 0)
