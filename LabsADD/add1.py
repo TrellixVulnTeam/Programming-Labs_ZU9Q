@@ -1,5 +1,6 @@
 import pay as pay
 
+
 def hello_user():
     print("Enter name")
     name = input()
@@ -12,8 +13,11 @@ def celsium_to_farengeit(celsium):
 
 def console_ctf():
     print("Температура по шкале Цельсия:")
-    degree = float(input())
-    print("Температура по шкале Фаренгейта:" + str(celsium_to_farengeit(degree)))
+    try:
+        degree = float(input())
+        print("Температура по шкале Фаренгейта:" + str(celsium_to_farengeit(degree)))
+    except ValueError:
+        print("Incorrect arg")
 
 
 hello_user()

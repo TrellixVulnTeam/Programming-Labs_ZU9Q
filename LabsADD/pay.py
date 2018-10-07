@@ -4,7 +4,12 @@ def pay(hours, rate):
 
 def console_pay():
     print("Enter hours:")
-    hours = float(input())  # row_input in Python3
+    hours = input()  # row_input in Python3
     print("Enter rate:")
-    rate = float(input())
-    print("Pay:" + str(pay(hours, rate)))
+    rate = input()
+    try:
+        hours = float(hours)
+        rate = float(rate)
+        print("Pay:" + str(pay(hours, rate)))
+    except ValueError:
+        print("Incorrect args")
