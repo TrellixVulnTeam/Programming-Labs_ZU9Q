@@ -93,10 +93,61 @@ def console_dec():
         print("Incorrect arg")
 
 
+def max(a,b):
+    if a > b:
+        return b
+    else:
+        return a
+
+
+def console_max():
+    print("Enter a:")
+    a = input()
+    print("Enter b:")
+    b = input()
+    try:
+        a = float(a)
+        b = float(b)
+        print("Max " + str(max(a,b)))
+    except ValueError:
+        print("Incorrect arg")
+
+
+def console_menu():
+    print("We have 9 command для возведения в степень")
+    print("Enter command:")
+    c = input()
+    print("Enter number:")
+    n = input()
+    try:
+        c = float(c)
+        n = float(n)
+        if 1 <= c <= 9:
+            print(str(pow(n, c)))
+        else:
+            raise ValueError()
+    except ValueError:
+        print("Incorrect arg")
+
+
+def prod3(mass: list):
+    prod = 0
+    for i in mass:
+        if(i % 3) == 0:
+            if prod == 0:
+                prod = i
+            else:
+                prod *= i
+    return prod
+
+
 if __name__ == "__main__":
     hello_user()
     console_lab1()
     console_b()
     console_dec()
+    console_max()
+    console_menu()
+    print("Prod: " + str(prod3([9, 2, 3, 4])))
     pay.console_pay()
     console_ctf()
