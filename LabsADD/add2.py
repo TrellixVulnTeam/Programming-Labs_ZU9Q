@@ -27,12 +27,14 @@ def file_row_sum():
                     sum += int(line)
                 except ValueError:
                     continue
-        print("Sum = " + str(sum))
+        with open("test.out", "w+") as file:
+            file.write(str(sum))
     except FileNotFoundError:
         print("File do not found")
 
 
 if __name__ == "__main__":
     pay.console_pay()
+    console_score()
     file_row_sum()
 
