@@ -93,7 +93,7 @@ def console_dec():
         print("Incorrect arg")
 
 
-def max(a,b):
+def max(a, b):
     if a > b:
         return b
     else:
@@ -127,7 +127,7 @@ def console_menu():
         else:
             raise ValueError()
     except ValueError:
-        print("Incorrect arg")
+        print("Incorrect args")
 
 
 def prod3(mass: list):
