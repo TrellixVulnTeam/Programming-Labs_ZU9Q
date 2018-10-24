@@ -2,11 +2,26 @@ import pay as pay
 
 
 def score(number):
-    number = round(number)
-    if number > 3:
-        return "Good score"
+    number = round(number, 2)
+    if number * 100 // 5:
+        number = round((number + 0.1), 1) * 10
     else:
-        return "Bad score"
+        number = round(number, 1) * 10
+    #A = [95, 100]
+    #B = [85, 95)
+    #C = [75, 85)
+    #D = [65, 75)
+    #E = [60, 65)
+    #F = [0, 60)
+    dict = {10: "A", 9: "B", 8: "C", 7: "D", 6: "E"}
+    if 0 <= number <= 10:
+        val = dict[number]
+        if val is not None:
+            return val
+        else:
+            return "F"
+    else:
+        raise ValueError
 
 
 def console_score():
@@ -15,7 +30,7 @@ def console_score():
         n = float(input())
         print(score(n))
     except ValueError:
-        print("Incorrect arg")
+        print("Bad score")
 
 
 def file_row_sum():

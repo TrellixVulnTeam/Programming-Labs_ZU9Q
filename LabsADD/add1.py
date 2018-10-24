@@ -8,7 +8,7 @@ def hello_user():
 
 
 def celsium_to_farengeit(celsium):
-    return round(celsium - 32 * 5 / 9, 2);
+    return round(celsium * 9 / 5 + 32, 2);
 
 
 def console_ctf():
@@ -95,9 +95,9 @@ def console_dec():
 
 def max(a, b):
     if a > b:
-        return b
-    else:
         return a
+    else:
+        return b
 
 
 def console_max():
@@ -130,10 +130,22 @@ def console_menu():
         print("Incorrect args")
 
 
+def prod31(mass: list):
+    prod = 0
+    c = 0
+    while c < len(mass):
+        if mass[c] // 3:
+            if prod == 0:
+                prod = c
+            else:
+                prod *= c
+    return prod
+
+
 def prod3(mass: list):
     prod = 0
     for i in mass:
-        if(i % 3) == 0:
+        if i // 3:
             if prod == 0:
                 prod = i
             else:
@@ -143,10 +155,15 @@ def prod3(mass: list):
 
 if __name__ == "__main__":
     hello_user()
+    print("lab1 1")
     console_lab1()
+    print("lab1 2")
     console_b()
+    print("lab1 3")
     console_dec()
+    print("lab2 1")
     console_max()
+    print("lab2 2")
     console_menu()
     print("Prod: " + str(prod3([9, 2, 3, 4])))
     pay.console_pay()
