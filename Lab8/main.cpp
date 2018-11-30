@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 	std::fstream file;
-	file.open("text.txt", std::fstream::in | std::fstream::out);
+	file.open("text.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);	
 
 	LinkedText text;	
 	text.AddLine("Linerg#rgfghgs 1");
@@ -35,6 +35,7 @@ int main() {
 
 	text.SetName("Test text");	
 	text.Write(file);
+	file.seekg(std::ios::beg);
 
 	cout << "Text name: " << text.GetName() << endl;
 	text.Write(cout);
@@ -48,8 +49,9 @@ int main() {
 	text2.FindLetter('Z', i, j);
 	cout << "First contains of letter Z" << endl << "Row " << i << " Column " << j << endl;
 	
-	cout << "Row which contains maximum count letter Z " << text2.GetLineWithMaxLetterContains('i') << endl;
+	cout << "Row which contains maximum count letter i: " << std::endl << *text2.GetLineWithMaxLetterContains('i') << endl;
 
+	file.close();
 	system("pause");
 	return 0;
 }

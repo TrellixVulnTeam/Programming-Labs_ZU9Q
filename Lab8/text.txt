@@ -1,6 +1,6 @@
 Test text
-Linerg#rgfghgs 1
+Linerg
 Liine 2
-Linerg#rgfghgs 1
+Linerg
 Liine 3
 #
