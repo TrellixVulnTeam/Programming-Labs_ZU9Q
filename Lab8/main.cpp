@@ -2,8 +2,6 @@
 #include <fstream>
 #include "LinkedText.h"
 
-#include <algorithm>
-
 using namespace std;
 
 int main() {
@@ -52,6 +50,10 @@ int main() {
 	cout << "First contains of letter Z" << endl << "Row " << i << " Column " << j << endl;
 	
 	cout << "Row which contains maximum count letter i: " << std::endl << *text2.GetLineWithMaxLetterContains('i') << endl;	
+
+	LinkedText text3;
+	text3.Load(cin);
+	text3.Write(cout);
 
 	file.close();
 	system("pause");
