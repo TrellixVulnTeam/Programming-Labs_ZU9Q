@@ -39,8 +39,8 @@ public:
 	void Load(std::istream&);
 	
 	void AddLine(std::string);
-	void CopyLine(number, number);
-	void RemoveLine(number);
+	void CopyLine(iterator, iterator);
+	void RemoveLine(iterator);
 	
 	void FindLetter(char, number &, number &);
 	iterator GetLineWithMaxLetterContains(char);

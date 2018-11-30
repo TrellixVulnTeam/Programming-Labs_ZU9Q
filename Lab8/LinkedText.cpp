@@ -98,9 +98,8 @@ void LinkedText::Load(std::istream& stream) {
 		}
 		AddLine(line);
 	}
-	if (firstItem->next != endItem) {
-		SetName(firstItem->next->line);
-		RemoveLine(1);
+	if (firstItem->next != endItem) {		
+		RemoveLine(begin());
 	}		
 }
 
@@ -117,49 +116,23 @@ void LinkedText::AddLine(std::string line)
 	add->next = endItem;
 }
 
-void LinkedText::CopyLine(number where_after, number from)
+void LinkedText::CopyLine(iterator what, iterator whereAfter)
 {
-	LinkedTextItem* where = firstItem->next;
-	LinkedTextItem* what = firstItem->next;
-	
-	for (number i = 1; i < where_after; i++) {
-		if (where->next != endItem)
-			where = where->next;
-		else
-			throw "Incorrect where argument";
-	}
-	
-	for (number i = 1; i < from; i++) {
-		if (what->next != endItem)
-			what = what->next;
-		else
-			throw "Incorrect from argument";
-	}
-	
 	LinkedTextItem *newItem = new LinkedTextItem();
-	newItem->line = what->line;
-	newItem->next = where->next;
-	newItem->next->before = newItem;
-	where->next = newItem;
-	newItem->before = where;
-		
-
+	newItem->line = *what;
+	newItem->next = whereAfter.node->next;
+	whereAfter.node->next->before = newItem;
+	whereAfter.node->next = newItem;
+	newItem->before = whereAfter.node;
 }
 
-void LinkedText::RemoveLine(number rem)
-{
-	LinkedTextItem* remItem = firstItem->next;			
-	
-	for (number i = 1; i < rem; i++) {
-		if (remItem->next != endItem)
-			remItem = remItem->next;
-		else
-			throw "Incorrect number of remove item";
-	}
-	
-	remItem->before->next = remItem->next;
-	remItem->next->before = remItem->before;
-	delete remItem;
+void LinkedText::RemoveLine(LinkedText::iterator rem)
+{	
+	rem.node->before->next = rem.node->next;
+	rem.node->next->before = rem.node->before;
+	if (rem == begin())
+		firstItem = firstItem->next;
+	delete rem.node;
 }
 
 void LinkedText::FindLetter(char letter, number &row, number &column)

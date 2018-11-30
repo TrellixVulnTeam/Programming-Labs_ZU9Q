@@ -21,15 +21,15 @@ int main() {
 	text.Write(cout);
 	cout << endl;
 
-	text.CopyLine(2, 1);
+	text.CopyLine(text.begin() + 2, text.begin() + 1);
 	text.Write(cout);
 	cout << endl;
 
-	text.CopyLine(2, 1);
+	text.CopyLine(text.begin() + 2, text.begin() + 1);
 	text.Write(cout);
 	cout << endl;
 
-	text.RemoveLine(3);
+	text.RemoveLine(text.begin() + 3);
 	text.Write(cout);
 	cout << endl;
 
