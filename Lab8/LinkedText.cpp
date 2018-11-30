@@ -29,11 +29,32 @@ void LinkedText::Save(const char* path)
 	std::ofstream stream(path);
 	LinkedTextItem *current = firstItem;
 	while (current != endItem) {		
-		stream << current->line << "\n";
+		stream << current->line << std::endl;
 		current = current->next;
 	}
 	stream << endItem->line;
 	stream.close();
+}
+
+void LinkedText::Write(std::ostream& stream) {
+	auto current = firstItem;
+	while (current != endItem) {
+		stream << current->line << std::endl;
+		current = current->next;
+	}
+}
+
+void LinkedText::Load(std::istream& stream) {
+	std::string line;
+	while(std::getline(stream, line)){
+		size_t pos = line.find_first_of("#");
+		if (pos < line.size()) {
+			line = line.substr(0, pos);
+			AddLine(line);
+			break;
+		}
+		AddLine(line);
+	}
 }
 
 void LinkedText::Load(const char* path)

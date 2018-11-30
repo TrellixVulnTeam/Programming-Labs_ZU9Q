@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <istream>
+#include <ostream>
 
 typedef unsigned int number;
 
@@ -15,7 +17,9 @@ public:
 	LinkedText();
 	~LinkedText();
 	void Save(const char*);
+	void Write(std::ostream&);
 	void Load(const char*);
+	void Load(std::istream&);
 	void AddLine(std::string);
 	void CopyLine(number, number);
 	void RemoveLine(number);
