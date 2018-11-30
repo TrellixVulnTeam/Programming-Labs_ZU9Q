@@ -117,7 +117,9 @@ void LinkedText::AddLine(std::string line)
 }
 
 void LinkedText::CopyLine(iterator what, iterator whereAfter)
-{
+{	
+	if (!whereAfter.node || !what.node)
+		throw std::invalid_argument("Iterator nodes do not exist");
 	LinkedTextItem *newItem = new LinkedTextItem();
 	newItem->line = *what;
 	newItem->next = whereAfter.node->next;
@@ -128,6 +130,8 @@ void LinkedText::CopyLine(iterator what, iterator whereAfter)
 
 void LinkedText::RemoveLine(LinkedText::iterator rem)
 {	
+	if (!rem.node)
+		throw std::invalid_argument("Remove elem does not exist");
 	rem.node->before->next = rem.node->next;
 	rem.node->next->before = rem.node->before;
 	if (rem == begin())
