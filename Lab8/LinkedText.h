@@ -14,18 +14,37 @@ struct LinkedTextItem {
 struct LinkedText
 {
 public:
+	class iterator {
+		friend class LinkedText;
+	public:
+		iterator(LinkedTextItem*);
+		iterator operator++(); //prefix
+		iterator operator++(int none); //postfix
+		iterator operator+(number);
+		iterator operator+=(number);
+		bool operator==(iterator);
+		bool operator!=(iterator);
+		std::string& operator*();
+	private:
+		LinkedTextItem* node;
+	};
+
+	iterator begin();
+	iterator end();
+
 	LinkedText();
 	~LinkedText();
-	void Save(const char*);
+	
 	void Write(std::ostream&);
-	void Load(const char*);
 	void Load(std::istream&);
+	
 	void AddLine(std::string);
 	void CopyLine(number, number);
 	void RemoveLine(number);
+	
 	void FindLetter(char, number &, number &);
-	number GetLineWithMaxLetterContains(char);
-	void ConsolePrint();
+	iterator GetLineWithMaxLetterContains(char);
+		
 	std::string GetName();
 	void SetName(std::string);
 private:

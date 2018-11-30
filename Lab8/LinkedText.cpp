@@ -2,6 +2,14 @@
 #include <iostream>
 #include <fstream>
 
+LinkedText::iterator LinkedText::begin() {
+	return iterator(firstItem);
+}
+
+LinkedText::iterator LinkedText::end() {
+	return iterator(endItem);
+}
+
 LinkedText::LinkedText()
 {
 	firstItem = new LinkedTextItem();
@@ -22,18 +30,6 @@ LinkedText::~LinkedText()
 		delete current->before;
 	}	
 	delete endItem;
-}
-
-void LinkedText::Save(const char* path)
-{
-	std::ofstream stream(path);
-	LinkedTextItem *current = firstItem;
-	while (current != endItem) {		
-		stream << current->line << std::endl;
-		current = current->next;
-	}
-	stream << endItem->line;
-	stream.close();
 }
 
 void LinkedText::Write(std::ostream& stream) {
@@ -57,43 +53,12 @@ void LinkedText::Load(std::istream& stream) {
 	}
 }
 
-void LinkedText::Load(const char* path)
-{
-	const int max_size = 1024;	
-	FILE* file;
-	fopen_s(&file, path, "r");
-	char line[max_size];
-	std::string temp;
-	while (!feof(file)) {
-		fgets(line, max_size, file);
-		temp = line;
-		size_t l = temp.find_last_of("\n\0");
-		temp = temp.substr(0, l);		
-		l = temp.find_first_of("#");
-		if (l <= temp.size()) {
-			temp = temp.substr(0, l);
-			AddLine(temp);
-			break;
-		}		
-		AddLine(temp);
-	}
-	if (firstItem->next != endItem)
-	{
-		firstItem->line = firstItem->next->line;
-		RemoveLine(1);	
-	}
-	if (endItem->before->line.empty()) {
-		auto before_before = endItem->before->before;
-		before_before->next = endItem;		
-		delete endItem->before;
-		endItem->before = before_before;
-	}
-	fclose(file);
-}
-
 void LinkedText::AddLine(std::string line)
 {
 	LinkedTextItem *add = new LinkedTextItem();
+	size_t pos = line.find_first_of('#');
+	if (pos < line.size)
+		line = line.substr(0, pos);
 	add->line = line;
 	add->before = endItem->before;
 	endItem->before->next = add;
@@ -105,107 +70,91 @@ void LinkedText::CopyLine(number where_after, number from)
 {
 	LinkedTextItem* where = firstItem->next;
 	LinkedTextItem* what = firstItem->next;
-	try {
-		for (number i = 1; i < where_after; i++)
-		{
-			if (where->next != endItem)
-				where = where->next;
-			else
-				throw "Incorrect where argument";
-		}
-		for (number i = 1; i < from; i++) {
-			if (what->next != endItem)
-				what = what->next;
-			else
-				throw "Incorrect from argument";
-		}
-		LinkedTextItem *newItem = new LinkedTextItem();
-		newItem->line = what->line;
-		newItem->next = where->next;
-		newItem->next->before = newItem;
-		where->next = newItem;
-		newItem->before = where;
+	
+	for (number i = 1; i < where_after; i++) {
+		if (where->next != endItem)
+			where = where->next;
+		else
+			throw "Incorrect where argument";
 	}
-	catch (const char* er) {
-		std::cout << er << std::endl;
+	
+	for (number i = 1; i < from; i++) {
+		if (what->next != endItem)
+			what = what->next;
+		else
+			throw "Incorrect from argument";
 	}
+	
+	LinkedTextItem *newItem = new LinkedTextItem();
+	newItem->line = what->line;
+	newItem->next = where->next;
+	newItem->next->before = newItem;
+	where->next = newItem;
+	newItem->before = where;
+		
+
 }
 
 void LinkedText::RemoveLine(number rem)
 {
-	LinkedTextItem* remItem = firstItem->next;
-	try {
-		for (number i = 1; i < rem; i++)
-		{
-			if (remItem->next != endItem)
-				remItem = remItem->next;
-			else
-				throw "Incorrect number of remove item";
-		}		
-		remItem->before->next = remItem->next;
-		remItem->next->before = remItem->before;
-		delete remItem;
+	LinkedTextItem* remItem = firstItem->next;			
+	
+	for (number i = 1; i < rem; i++) {
+		if (remItem->next != endItem)
+			remItem = remItem->next;
+		else
+			throw "Incorrect number of remove item";
 	}
-	catch (const char *er) {
-		std::cout << er << std::endl;
-	}
+	
+	remItem->before->next = remItem->next;
+	remItem->next->before = remItem->before;
+	delete remItem;
 }
 
-void LinkedText::FindLetter(char letter, number &i, number &j)
+void LinkedText::FindLetter(char letter, number &row, number &column)
 {
 	LinkedTextItem* temp = firstItem->next;
-	number r = 1;
+	number irow = 1;
 	bool isFind = false;
 	while (temp != endItem && !isFind) {
-		number c = 1;
+		number icolumn = 1;
 		for (auto it = temp->line.cbegin(); it != temp->line.cend(); it++)
 		{			
 			if (*it == letter)
 			{
-				i = r;
-				j = c;
+				row = irow;
+				column = icolumn;
 				isFind = true;
 				break;
 			}
-			c++;
+			icolumn++;
 		}
 		temp = temp->next;
-		r++;
+		irow++;
 	}
 }
 
-number LinkedText::GetLineWithMaxLetterContains(char letter)
+LinkedText::iterator LinkedText::GetLineWithMaxLetterContains(char letter)
 {	
 	LinkedTextItem* temp = firstItem->next;
 	number i = 1;
-	std::pair<number, number> imax = {0,0};
+	std::pair<iterator, number> maxPair = std::make_pair(begin(), 0);
 	number count;
-	while (temp != endItem) {
-		count = 0;
-		for (auto it = temp->line.cbegin(); it != temp->line.cend(); it++)
-		{
-			if (*it == letter)
-			{
-				count++;							
-			}			
+	for (auto it = begin(); it != end(); ++it) {
+		for (auto strIt = (*it).begin(); strIt != (*it).end(); ++strIt) {
+			if (*strIt == letter) {
+				count++;
+			}
 		}
-		if (count > imax.second) {
-			imax.first = i;
-			imax.second = count;
-		}			
-		temp = temp->next;
-		i++;
+		count = 0;
+		if (count > maxPair.second) {
+			maxPair.first = it;
+			maxPair.second = count;
+		}
 	}
-	return imax.first;
-}
-
-void LinkedText::ConsolePrint()
-{
-	LinkedTextItem *current = firstItem->next;
-	while (current != endItem) {
-		std::cout << current->line << std::endl;
-		current = current->next;
-	}
+	if (maxPair.second == 0)
+		throw std::invalid_argument("Letter does not contains");
+	return maxPair.first;
 }
 
 std::string LinkedText::GetName()
