@@ -18,7 +18,7 @@ class LinkedText
 public:
 	class iterator
 	{
-		friend class LinkedText;		//for use private fields for impl Linked Text method
+		friend class LinkedText;		//for use private fields in impl Linked Text method
 	public:
 		//for use STL next, advance and other
 		using iterator_category = std::bidirectional_iterator_tag;		
@@ -39,6 +39,11 @@ public:
 		iterator& operator--();			//prefix
 		iterator operator--(int);		//postfix
 		
+		iterator operator+(number offset);
+		iterator& operator+=(number offset);
+		iterator operator-(number offset);
+		iterator& operator-=(number offset);
+
 		bool operator==(const iterator&);
 		bool operator!=(const iterator&);
 		std::string& operator*();
@@ -65,8 +70,11 @@ public:
 		
 	std::string GetName();
 	void SetName(std::string);
+
+	number GetSize();
 private:
 	LinkedTextItem *firstItem;
 	LinkedTextItem *endItem;
+	number size;
 };
 

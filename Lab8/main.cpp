@@ -23,7 +23,9 @@ int main() {
 	text.Write(cout);
 	cout << endl;	
 
-	text.CopyLine(std::next(text.begin(), 2), std::next(text.end(), 1));
+	cout << *std::next(text.begin(), 1);
+
+	text.CopyLine(std::next(text.begin(), 2), std::next(text.begin(), 1));
 	text.Write(cout);
 	cout << endl;	
 
@@ -31,11 +33,16 @@ int main() {
 	text.Write(cout);
 	cout << endl;
 
-	text.RemoveLine(std::next(text.begin(), 3));
+	text.RemoveLine(text.begin()+3);
 	text.Write(cout);
 	cout << endl;
 
-	text.SetName("Test text");	
+	auto iter = text.begin();
+	iter += 2;
+	cout << *iter << std::endl;
+
+	cout << text.GetSize() << std::endl;
+	text.SetName("Test text");
 	text.Write(file);
 	file.seekg(std::ios::beg);
 
@@ -49,8 +56,7 @@ int main() {
 
 	number i = 0, j = 0;
 	text2.FindLetter('Z', i, j);
-	cout << "First contains of letter Z" << endl << "Row " << i << " Column " << j << endl;
-	
+	cout << "First contains of letter Z" << endl << "Row " << i << " Column " << j << endl;	
 	cout << "Row which contains maximum count letter i: " << std::endl << *text2.GetLineWithMaxLetterContains('i') << endl;		
 
 	LinkedText text3;

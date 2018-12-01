@@ -26,14 +26,13 @@ LinkedText::iterator& LinkedText::iterator::operator=(const iterator& iter) {
 }
 
 LinkedText::iterator& LinkedText::iterator::operator++() {
-	node = node->next;
+	node = node->next;	
 	return *this;
 }
 
 LinkedText::iterator LinkedText::iterator::operator++(int) {
-	LinkedTextItem* temp = node;
-	node = node->next;
-	return iterator(temp);
+	auto res = iterator(node->next);
+	return res;
 }
 
 LinkedText::iterator& LinkedText::iterator::operator--() {
@@ -42,9 +41,42 @@ LinkedText::iterator& LinkedText::iterator::operator--() {
 }
 
 LinkedText::iterator LinkedText::iterator::operator--(int) {
-	LinkedTextItem* temp = node;
-	node = node->before;
-	return iterator(temp);
+	auto res = iterator(node->before);
+	return res;
+}
+
+LinkedText::iterator LinkedText::iterator::operator+(number offset) {	
+	iterator res = *this;
+	while (offset > 0) {
+		res = res.node->next;
+		offset--;
+	}
+	return res;
+}
+
+LinkedText::iterator& LinkedText::iterator::operator+=(number offset) {
+	while (offset > 0) {
+		node = node->next;
+		offset--;
+	}
+	return *this;
+}
+
+LinkedText::iterator LinkedText::iterator::operator-(number offset) {
+	iterator res = *this;
+	while (offset > 0) {
+		res = res.node->before;
+		offset--;
+	}
+	return res;
+}
+
+LinkedText::iterator& LinkedText::iterator::operator-=(number offset) {
+	while (offset > 0) {
+		node = node->before;
+		offset--;
+	}
+	return *this;
 }
 
 bool LinkedText::iterator::operator==(const iterator& iter) {
@@ -79,10 +111,9 @@ LinkedText::LinkedText() {
 	firstItem = new LinkedTextItem();
 	endItem = new LinkedTextItem();	
 	firstItem->next = endItem;
-	firstItem->before = endItem;
 	endItem->line = "#";		//Task specific
 	endItem->before = firstItem;
-	endItem->next = firstItem;
+	size = 0;
 }
 
 
@@ -132,6 +163,7 @@ void LinkedText::AddLine(std::string line) {
 	endItem->before->next = add;
 	endItem->before = add;
 	add->next = endItem;
+	size++;
 }
 
 void LinkedText::CopyLine(iterator what, iterator whereAfter) {
@@ -143,16 +175,19 @@ void LinkedText::CopyLine(iterator what, iterator whereAfter) {
 	whereAfter.node->next->before = newItem;
 	whereAfter.node->next = newItem;
 	newItem->before = whereAfter.node;
+	size++;
 }
 
 void LinkedText::RemoveLine(LinkedText::iterator rem) {
 	if (!rem.node)
 		throw std::invalid_argument("Remove elem does not exist");
-	rem.node->before->next = rem.node->next;
-	rem.node->next->before = rem.node->before;
-	if (rem == begin())
+	if(rem != begin())
+		rem.node->before->next = rem.node->next;
+	else
 		firstItem = firstItem->next;
+	rem.node->next->before = rem.node->before;
 	delete rem.node;
+	size--;
 }
 
 void LinkedText::FindLetter(char letter, number &row, number &column) {
@@ -203,6 +238,10 @@ std::string LinkedText::GetName() {
 
 void LinkedText::SetName(std::string name) {
 	firstItem->line = name;
+}
+
+number LinkedText::GetSize() {
+	return size;
 }
 
 #pragma endregion
