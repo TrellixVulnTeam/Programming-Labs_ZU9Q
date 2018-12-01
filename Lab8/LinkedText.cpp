@@ -2,42 +2,56 @@
 #include <iostream>
 #include <fstream>
 
+#pragma region Iterator impl
+
+LinkedText::iterator::iterator() {
+	this->node = nullptr;	
+}
+
 LinkedText::iterator::iterator(LinkedTextItem* node) {
 	this->node = node;
 }
 
-LinkedText::iterator LinkedText::iterator::operator++() {
+LinkedText::iterator::iterator(LinkedTextItem& node) {
+	this->node = &node;
+}
+
+LinkedText::iterator::iterator(const iterator& iter) {
+	this->node = iter.node;
+}
+
+LinkedText::iterator& LinkedText::iterator::operator=(const iterator& iter) {
+	node = iter.node;
+	return *this;
+}
+
+LinkedText::iterator& LinkedText::iterator::operator++() {
 	node = node->next;
 	return *this;
 }
 
-LinkedText::iterator LinkedText::iterator::operator++(int none) {
+LinkedText::iterator LinkedText::iterator::operator++(int) {
 	LinkedTextItem* temp = node;
 	node = node->next;
-
 	return iterator(temp);
 }
 
-LinkedText::iterator LinkedText::iterator::operator+(number offset) {
-	LinkedTextItem* current = node;
-	while (offset > 0 && current) {
-		current = current->next;
-		offset--;
-	}
-	if (offset != 0)
-		throw std::invalid_argument("Size overflow)");
-	return iterator(current);
+LinkedText::iterator& LinkedText::iterator::operator--() {
+	node = node->before;
+	return *this;
 }
 
-LinkedText::iterator LinkedText::iterator::operator+=(number offset) {
-	return operator+(offset);
+LinkedText::iterator LinkedText::iterator::operator--(int) {
+	LinkedTextItem* temp = node;
+	node = node->before;
+	return iterator(temp);
 }
 
-bool LinkedText::iterator::operator==(iterator iter) {
+bool LinkedText::iterator::operator==(const iterator& iter) {
 	return iter.node == this->node;
 }
 
-bool LinkedText::iterator::operator!=(iterator iter) {
+bool LinkedText::iterator::operator!=(const iterator& iter) {
 	return !operator==(iter);
 }
 
@@ -45,8 +59,15 @@ std::string& LinkedText::iterator::operator*() {
 	return node->line;
 }
 
+std::string* LinkedText::iterator::operator->() {
+	return &node->line;
+}
 
-LinkedText::iterator LinkedText::begin() {
+#pragma endregion
+
+#pragma region LinkedText impl
+
+LinkedText::iterator LinkedText::begin() {	
 	return iterator(firstItem);
 }
 
@@ -54,25 +75,23 @@ LinkedText::iterator LinkedText::end() {
 	return iterator(endItem);
 }
 
-LinkedText::LinkedText()
-{
+LinkedText::LinkedText() {
 	firstItem = new LinkedTextItem();
 	endItem = new LinkedTextItem();	
-	firstItem->before = endItem;
 	firstItem->next = endItem;
-	endItem->next = firstItem;
-	endItem->line = "#";
+	firstItem->before = endItem;
+	endItem->line = "#";		//Task specific
 	endItem->before = firstItem;
+	endItem->next = firstItem;
 }
 
 
-LinkedText::~LinkedText()
-{
-	LinkedTextItem *current = firstItem;	
+LinkedText::~LinkedText() {
+	LinkedTextItem *current = firstItem;
 	while (current != endItem) {
 		current = current->next;
 		delete current->before;
-	}	
+	}
 	delete endItem;
 }
 
@@ -87,24 +106,23 @@ void LinkedText::Write(std::ostream& stream) {
 
 void LinkedText::Load(std::istream& stream) {
 	std::string line;
-	while(std::getline(stream, line)){
+	while (std::getline(stream, line)) {
 		size_t pos = line.find_first_of("#");
 		if (pos < line.size()) {
-			if(pos > 0){
+			if (pos > 0) {
 				line = line.substr(0, pos);
 				AddLine(line);
-			}			
+			}
 			break;
 		}
 		AddLine(line);
 	}
-	if (firstItem->next != endItem) {		
+	if (firstItem->next != endItem) {
 		RemoveLine(begin());
-	}		
+	}
 }
 
-void LinkedText::AddLine(std::string line)
-{
+void LinkedText::AddLine(std::string line) {
 	LinkedTextItem *add = new LinkedTextItem();
 	size_t pos = line.find_first_of('#');
 	if (pos < line.size())
@@ -116,8 +134,7 @@ void LinkedText::AddLine(std::string line)
 	add->next = endItem;
 }
 
-void LinkedText::CopyLine(iterator what, iterator whereAfter)
-{	
+void LinkedText::CopyLine(iterator what, iterator whereAfter) {
 	if (!whereAfter.node || !what.node)
 		throw std::invalid_argument("Iterator nodes do not exist");
 	LinkedTextItem *newItem = new LinkedTextItem();
@@ -128,8 +145,7 @@ void LinkedText::CopyLine(iterator what, iterator whereAfter)
 	newItem->before = whereAfter.node;
 }
 
-void LinkedText::RemoveLine(LinkedText::iterator rem)
-{	
+void LinkedText::RemoveLine(LinkedText::iterator rem) {
 	if (!rem.node)
 		throw std::invalid_argument("Remove elem does not exist");
 	rem.node->before->next = rem.node->next;
@@ -139,17 +155,14 @@ void LinkedText::RemoveLine(LinkedText::iterator rem)
 	delete rem.node;
 }
 
-void LinkedText::FindLetter(char letter, number &row, number &column)
-{
+void LinkedText::FindLetter(char letter, number &row, number &column) {
 	LinkedTextItem* temp = firstItem->next;
 	number irow = 1;
 	bool isFind = false;
 	while (temp != endItem && !isFind) {
 		number icolumn = 1;
-		for (auto it = temp->line.cbegin(); it != temp->line.cend(); it++)
-		{			
-			if (*it == letter)
-			{
+		for (auto it = temp->line.cbegin(); it != temp->line.cend(); it++) {
+			if (*it == letter) {
 				row = irow;
 				column = icolumn;
 				isFind = true;
@@ -162,35 +175,34 @@ void LinkedText::FindLetter(char letter, number &row, number &column)
 	}
 }
 
-LinkedText::iterator LinkedText::GetLineWithMaxLetterContains(char letter)
-{	
+LinkedText::iterator LinkedText::GetLineWithMaxLetterContains(char letter) {
 	LinkedTextItem* temp = firstItem->next;
 	number i = 1;
 	std::pair<iterator, number> maxPair = std::make_pair(begin(), 0);
 	number count;
 	for (auto it = begin(); it != end(); ++it) {
 		count = 0;
-		for (auto strIt = (*it).begin(); strIt != (*it).end(); ++strIt) {
+		for (auto strIt = it->begin(); strIt != it->end(); ++strIt) {
 			if (*strIt == letter) {
 				count++;
 			}
-		}		
+		}
 		if (count > maxPair.second) {
 			maxPair.first = it;
 			maxPair.second = count;
-		}		
+		}
 	}
 	if (maxPair.second == 0)
 		throw std::invalid_argument("Letter does not contains");
 	return maxPair.first;
 }
 
-std::string LinkedText::GetName()
-{
+std::string LinkedText::GetName() {
 	return firstItem->line;
 }
 
-void LinkedText::SetName(std::string name)
-{
+void LinkedText::SetName(std::string name) {
 	firstItem->line = name;
 }
+
+#pragma endregion

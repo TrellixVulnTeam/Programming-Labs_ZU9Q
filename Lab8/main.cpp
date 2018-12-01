@@ -2,6 +2,8 @@
 #include <fstream>
 #include "LinkedText.h"
 
+#include <algorithm>
+
 using namespace std;
 
 int main() {
@@ -19,17 +21,17 @@ int main() {
 
 	text.AddLine("Liine 3");
 	text.Write(cout);
-	cout << endl;
+	cout << endl;	
 
-	text.CopyLine(text.begin() + 2, text.begin() + 1);
+	text.CopyLine(std::next(text.begin(), 2), std::next(text.end(), 1));
+	text.Write(cout);
+	cout << endl;	
+
+	text.CopyLine(text.begin(), std::next(text.begin(), 3));
 	text.Write(cout);
 	cout << endl;
 
-	text.CopyLine(text.begin() + 2, text.begin() + 1);
-	text.Write(cout);
-	cout << endl;
-
-	text.RemoveLine(text.begin() + 3);
+	text.RemoveLine(std::next(text.begin(), 3));
 	text.Write(cout);
 	cout << endl;
 
@@ -49,11 +51,12 @@ int main() {
 	text2.FindLetter('Z', i, j);
 	cout << "First contains of letter Z" << endl << "Row " << i << " Column " << j << endl;
 	
-	cout << "Row which contains maximum count letter i: " << std::endl << *text2.GetLineWithMaxLetterContains('i') << endl;	
+	cout << "Row which contains maximum count letter i: " << std::endl << *text2.GetLineWithMaxLetterContains('i') << endl;		
 
 	LinkedText text3;
 	text3.Load(cin);
 	text3.Write(cout);
+	
 
 	file.close();
 	system("pause");

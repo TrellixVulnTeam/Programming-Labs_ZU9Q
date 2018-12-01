@@ -2,29 +2,47 @@
 #include <string>
 #include <istream>
 #include <ostream>
+#include <iterator>
 
 typedef unsigned int number;
 
 struct LinkedTextItem {
+	LinkedTextItem() { before = nullptr; next = nullptr; }
 	LinkedTextItem* before;
 	std::string line;
 	LinkedTextItem* next;	
 };
 
-struct LinkedText
+class LinkedText
 {
 public:
-	class iterator {
-		friend class LinkedText;
+	class iterator
+	{
+		friend class LinkedText;		//for use private fields for impl Linked Text method
 	public:
+		//for use STL next, advance and other
+		using iterator_category = std::bidirectional_iterator_tag;		
+		using value_type = LinkedTextItem;
+		using difference_type = ptrdiff_t;
+		using pointer = LinkedTextItem*;
+		using reference = const LinkedTextItem&;
+
+		iterator();
+		iterator(const iterator&);
 		iterator(LinkedTextItem*);
-		iterator operator++(); //prefix
-		iterator operator++(int none); //postfix
-		iterator operator+(number);
-		iterator operator+=(number);
-		bool operator==(iterator);
-		bool operator!=(iterator);
+		iterator(LinkedTextItem&);		
+		iterator& operator=(const iterator&);
+
+		iterator& operator++();			//prefix
+		iterator operator++(int none);	//postfix
+
+		iterator& operator--();			//prefix
+		iterator operator--(int);		//postfix
+		
+		bool operator==(const iterator&);
+		bool operator!=(const iterator&);
 		std::string& operator*();
+		std::string* operator->();
 	private:
 		LinkedTextItem* node;
 	};
