@@ -128,10 +128,11 @@ LinkedText::~LinkedText() {
 
 void LinkedText::Write(std::ostream& stream) {
 	auto current = firstItem;
-	while (current) {
+	while (current != endItem) {
 		stream << current->line << std::endl;
 		current = current->next;
 	}
+	stream << endItem->line << std::endl;
 }
 
 void LinkedText::Load(std::istream& stream) {
