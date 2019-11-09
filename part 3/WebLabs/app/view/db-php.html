@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../styles/styles.css"/>
     <link rel="stylesheet" href="../styles/form.css"/>    
-    <script type="text/javascript" src="../assets/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/jquery/jquery.validate.min.js"></script>
-    <script src="../scripts/modal.js"></script>
-    <script src="../scripts/form-jquery.js"></script>
 </head>
 
 <html>
@@ -39,46 +35,62 @@
         </header>
 
         <div id="content"> 
-            <h1>Are you member?</h1>
-            <h2>Add yourself</h2>            
-            <form accept-charset="utf-8">
+            <h2>Add students</h2>            
+            <form accept-charset="utf-8" action="http://localhost/scripts/db.php" method="POST">
                 <section class="form-element">
-                    <label for="Name">Name</label>
-                    <input type="text" id="Name" name="Name" placeholder="Your name">
-                </section>                
+                    <label for="FirstName">First Name</label>
+                    <input type="text" id="FirstName" name="FirstName" 
+                        placeholder="Your first name"
+                        pattern="^[A-Za-z\s]+$" required />
+                </section>
 
                 <section class="form-element">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="Email" name="Email" placeholder="xxx@xxx.xxx">
+                    <label for="LastName">Last Name</label>
+                    <input type="text" id="LastName" name="LastName"
+                            placeholder="Your last name"
+                            pattern="^[A-Za-z\s]+$" required />
+                </section>
+
+                <section class="form-element">
+                    <label for="MiddleName">Middle Name</label>
+                    <input type="text" id="MiddleName" name="MiddleName" 
+                            placeholder="Your middle name"
+                            pattern="^[A-Za-z\s]+$" />
                 </section>
 
                 <section class="form-element">
                     <label for="Birthday">Birhtday</label>
-                    <input type="date" id="Birtdhay" name="Birthday">
+                    <input type="date" id="Birtdhay" name="Birthday" 
+                            pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+                            required />
                 </section>                               
 
-                <section class="form-element description">
-                    <label for="Desc">Description:</label>
-                    <textarea id="Desc" name="Desc" rows="5"></textarea>
-                </section>                
+                <section class="form-element">
+                    <label for="GroupCipher">Group Cipher</label>
+                    <input type="text" id="GroupCipher" name="GroupCipher" 
+                            placeholder="Group cipher: FI"
+                            pattern="[A-Z]{2}" required />
+                </section>
+
+                <section class="form-element">
+                    <label for="GroupNumber">Group Number</label>
+                    <input type="text" id="GroupNumber" name="GroupNumber"
+                            placeholder="Group Number: 81"
+                            pattern="([0-9]{2})" required />
+                </section>
+                          
+                <section class="form-element">
+                    <label for="Faculty">Faculty</label>
+                    <input type="text" id="Faculty" name="Faculty" 
+                            placeholder="Your faculty"
+                            pattern="^[A-Z]+$" required />
+                </section>
             
                 <section class="form-element">
                     <input type="submit">
                 </section>                
             </form>
-
-            <div class="modal">                                
-                <div class="modal-content">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Officiis quas corrupti temporibus tenetur quo aut error 
-                        sequi iure facere cum sapiente deserunt, ipsa amet hic 
-                        repellat non quibusdam sit laboriosam?
-                    </p>
-                    <div class="btn-ok" onclick="ClosePopup()">OK</div>
-                </div>                
-            </div>
-        </div>   
+        </div>
 
         <footer>
             <p>&copy; Oleh Shkalikov - 2019</p>
