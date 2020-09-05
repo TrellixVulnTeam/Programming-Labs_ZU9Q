@@ -5,7 +5,7 @@ namespace tests
 {
     public class BSTreeBaseTests
     {
-        private SimpleBSTree<int, int> tree = new SimpleBSTree<int, int>();
+        private DuplicableSimpleBSTree<int, int> tree = new DuplicableSimpleBSTree<int, int>();
 
         public BSTreeBaseTests()
         {
@@ -26,7 +26,7 @@ namespace tests
         [Fact]
         public void HeightEmpty()
         {
-            var tree = new SimpleBSTree<int, int>();
+            var tree = new DuplicableSimpleBSTree<int, int>();
             Assert.Equal(0, tree.Height);
         }
 
@@ -81,7 +81,7 @@ namespace tests
         public void Empty()
         {
             Assert.False(tree.Empty());
-            Assert.True(new SimpleBSTree<int, int>().Empty());
+            Assert.True(new DuplicableSimpleBSTree<int, int>().Empty());
         }
 
         [Fact]

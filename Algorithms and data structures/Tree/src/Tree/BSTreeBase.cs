@@ -12,7 +12,7 @@ namespace Tree
         {
             get
             {
-                if(Root != null)
+                if (Root != null)
                     return HeightFromNode(Root);
                 return 0;
             }
@@ -89,7 +89,7 @@ namespace Tree
                         visited.Enqueue(temp.Right);
                 }
             }
-            if(height != 0)
+            if (height != 0)
                 return height - 1;
             return 0;
         }

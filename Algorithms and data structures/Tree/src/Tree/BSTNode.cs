@@ -3,7 +3,7 @@ using System;
 namespace Tree
 {
     public class BSTNode<TKey, TValue> where TKey : IComparable<TKey>
-    {    
+    {
         public BSTNode(TKey key, TValue value)
         {
             this.Key = key;
@@ -26,7 +26,7 @@ namespace Tree
             {
                 var current = Parent;
                 int depth = 0;
-                while(current != null)
+                while (current != null)
                 {
                     depth++;
                     current = current.Parent;

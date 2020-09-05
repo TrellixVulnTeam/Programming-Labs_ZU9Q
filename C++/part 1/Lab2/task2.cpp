@@ -1,6 +1,7 @@
 #include "Task.h"
 
-void task2() {
+void task2()
+{
 	std::cout << "Please choose menu item" << std::endl;
 	for (int i = 1; i <= 9; i++)
 		std::cout << "Menu item " << i << " enter " << i << "\t";
@@ -53,23 +54,26 @@ void task2() {
 	std::cout << std::endl;
 }
 
-void alt_task2() {
+//better solve of task 2
+void alt_task2()
+{
 	std::cout << "Please choose command = power" << std::endl;
 
 	char command;
 	std::cout << "Enter command ";
 	std::cin >> command;
-	const char* c = &command;
+	const char *c = &command;
 
 	double x;
 	std::cout << "Enter number ";
 	std::cin >> x;
 
-	try {
+	try
+	{
 		std::cout << "Result task2" << std::pow(x, atoi(c)) << std::endl;
 	}
-	catch (...) {
+	catch (...)
+	{
 		std::cout << "You enter incorrect command";
 	}
-	
 }

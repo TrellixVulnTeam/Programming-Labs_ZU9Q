@@ -4,7 +4,7 @@
 
 std::stack<int> p1, p2, p3;
 
-extern void move(int n, std::stack<int>&from, std::stack<int> &to, std::stack<int> &indep);
+void move(int n, std::stack<int>&from, std::stack<int> &to, std::stack<int> &indep);
 
 void print() {
 	auto tp1 = p1;
@@ -29,7 +29,7 @@ void print() {
 	}
 }
 
-void add_task(int n) {	
+void add_task(int n) {
 	for (int i = n; i > 0; i--) {
 		p1.push(i);
 	}
@@ -40,13 +40,13 @@ void add_task(int n) {
 	print();
 }
 
-void move(int n, std::stack<int> &from, std::stack<int> &to, std::stack<int> &indep) {	
-	if (n >= 1) {		
+void move(int n, std::stack<int> &from, std::stack<int> &to, std::stack<int> &indep) {
+	if (n >= 1) {
 		move(n - 1, from, indep, to);
 		if (to.empty() || (!to.empty() && to.top() > from.top())) {
 			to.push(from.top());
 			from.pop();
-		}			
-		move(n - 1, indep, to, from);		
-	}	
+		}
+		move(n - 1, indep, to, from);
+	}
 }

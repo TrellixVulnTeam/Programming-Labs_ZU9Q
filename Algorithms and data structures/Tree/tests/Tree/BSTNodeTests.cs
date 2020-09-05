@@ -8,7 +8,7 @@ namespace tests
         [Fact]
         public void Depth()
         {
-            var tree = new SimpleBSTree<int, int>();
+            var tree = new DuplicableSimpleBSTree<int, int>();
             tree.Add(4, 4);
             tree.Add(9, 9);
             tree.Add(10, 10);
