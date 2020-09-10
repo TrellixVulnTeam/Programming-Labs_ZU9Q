@@ -12,15 +12,15 @@
 
 ## C++
 Курс "Программирование" на C++. Семестры
-[1(Структурное)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%201) и 
+[1(Структурное)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%201) и
 [2(ООП)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%202) соответственно. Вариант 22 mod n, где n - количество заданий. Также присутствуют дополнительные лабораторные по [Python 3](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%201/LabsADD).
 
-Сам курс, честно говоря, нельзя назвать С++, так как все что изучается не более чем C 98 с классами и генериками.
+Сам курс, честно говоря, нельзя назвать С++, так как все, что изучается, не более чем C 98 с классами и дженериками.
 
 Для сборки проектов используется [CMake](https://cmake.org/). В работах 2 семестра проверка работоспособности решений проверяется с помощью [Google Test](https://github.com/google/googletest)(не теряйте время в поисках main ;)).
 
 ## Web
-Курс "Веб программирование" вскользь охватывает такие технологии как HTML, CSS, JS, PHP, SQL. 
+Курс "Веб программирование" вскользь охватывает такие технологии как HTML, CSS, JS, PHP, SQL.
 
 Моя реализация работ выполнена в виде единого [приложения](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/Web/app), каждая страница которого представляет собой решения одного из заданий какой-либо лабораторной.
 
@@ -44,7 +44,7 @@
 
 ## Data Science
 
-Курс "Специальные разделы программирования. Наука о данных". Изучаються базоыве инструменты работы с наборами данных в Python, а также GDAL для работы со спутниковыми снимками. Большая часть работ выполнена в интерактивных
+Курс "Специальные разделы программирования. Наука о данных". Изучаються базовые инструменты работы с наборами данных в Python, а также GDAL для работы со спутниковыми снимками. Большая часть работ выполнена в интерактивных
 [Jupyter Notebook](https://jupyter.org/) для простоты визуализации.
 
 - [Подготовительный этап и получение данных (VHI)](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Data%20Science/VHI%20Index/VHI%20Index.ipynb)
@@ -53,6 +53,12 @@
   - [Базовый уровень (Household power consumption)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/Data%20Science/Household%20power%20consumption)
   - [Высокий уровень (Credit Approval)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/Data%20Science/Credit%20Approval)
 - [Работа со спутниковыми снимками](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Data%20Science/Satellite/Satellite.ipynb)
+
+## Math modeling
+
+Курс "Математическое моделирование". Рассмотрены, имплементированы и реализованы самые простые модели, в большинстве своем, связанные с системами автоматического управления. Работы выполнены в интерактивных [Jupyter Notebook](https://jupyter.org/).
+
+- [Фигуры Лиссажу. Полиномы Чебышева. Годограф Михайлова](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Math%20modeling/Lab%201.ipynb)
 
 ## Ошибки и неточности
 Если Вы заметили какую-либо ошибку или неточность, то оставьте пожелуйста сообщений о ней, создав соответвующий issue с точным ее описанием, порядком выполнения действий для воспроизведения и "целевым" файлом.
