@@ -61,6 +61,7 @@
 
 - [Фигуры Лиссажу. Полиномы Чебышева. Годограф Михайлова](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Math%20modeling/Lab%201.ipynb)
 - [LTI. ZPK, TF, SS representation](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Math%20modeling/Lab%202.ipynb)
+- [Nonlinear oscillators](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Math%20modeling/Lab%203.ipynb)
 
 ## Ошибки и неточности
 Если Вы заметили какую-либо ошибку или неточность, то оставьте пожелуйста сообщений о ней, создав соответвующий issue с точным ее описанием, порядком выполнения действий для воспроизведения и "целевым" файлом.
