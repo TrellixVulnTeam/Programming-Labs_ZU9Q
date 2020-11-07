@@ -1,0 +1,107 @@
+\subsection*{Варіант 4}
+
+Опишемо значення переходів та позицій цього варіанту мережі Петрі.
+Позиції:
+\begin{enumerate}
+    \item Філософ гуляє
+    \item Виделка лежить на своєму місці
+    \item Філософ взяв ліву виделку
+    \item Філософ взяв обидві виделки
+    \item \begin{enumerate}
+        \item (права гілка) Філософ обідає
+        \item (середня гілка) Філософ не прийняв запрошення
+        \item (ліва гілка) Філософ прийняв запрошення
+    \end{enumerate}
+\end{enumerate}
+
+Переходи:
+\begin{enumerate}
+    \item Філософ бере ліву виделки
+    \item Філософ бере праву виделку(її передав йому правий сусід)
+    \item \begin{enumerate}
+        \item (права гілка) Філософ готується до обіду
+        \item (середня гілка) Філософ не погоджується на запрошення
+        \item (ліва гілка) Філософ погоджується на запрошення
+    \end{enumerate}
+    \item Філософ повертається до прогулянки(ліва та права гілка).
+    Виделка повертається на місце - середня гілка.
+\end{enumerate}
+
+\begin{center}
+    \begin{tikzpicture}
+    [node distance=1.3cm,on grid,>=stealth',bend angle=25,auto,
+    every place/.style= {minimum size=6mm,thick,draw=blue!75,fill=blue!20},
+    every transition/.style={thick,draw=black!75,fill=black!20},
+    red place/.style= {place,draw=red!75,fill=red!20}]
+
+    \node [place,tokens=1] at (-3, 0) (A2) {};
+    \node [place] at (-3, 3) (B2) {};
+    \node [place,tokens=1] at (-4.5, 1) (C2) {};
+
+    \node [place,tokens=1] at (0, 0) (A3) {};
+    \node [place] at (0, 3) (B3) {};
+    \node [place,tokens=1] at (-1.5, 1) (C3) {};
+    \node [place] at (0, 6) (E3) {};
+    \node [place] at (2, 9) (D3) {};
+    \node [place] at (-2, 9) (F3) {};
+    \node [place] at (0, 9) (G3) {};
+
+    \node [place,tokens=1] at (3, 0) (A4) {};
+    \node [place] at (3, 3) (B4) {};
+    \node [place,tokens=1] at (2, 1) (C4) {};
+
+    \node [transition] at (0, 1.5) (f3) {}
+    edge [pre] (A3)
+    edge [pre, bend left] (C3)
+    edge [post] (B3);
+
+    \node [transition] at (0, 4.5) (r3) {}
+    edge [pre] (B3)
+    edge [pre] (B4)
+    edge [post] (A4)
+    edge [post] (E3);
+
+    \node [transition] at (2, 10.5) (e3) {}
+    edge [pre] (D3)
+    edge [post, bend right=15] (C3)
+    edge [post, bend left=15] (C4)
+    edge [post, bend left] (A3);
+
+    \node [transition] at (2, 7.5) (eat3) {}
+    edge [pre] (E3)
+    edge [post] (D3);
+
+    \node [transition] at (-2, 7.5) (inv3) {}
+    edge [pre, bend left=9] (A2)
+    edge [pre] (B3)
+    edge [post] (F3)
+    edge [post, bend right=30] (A2);
+
+    \node [transition] at (0, 8) (ninv3) {}
+    edge [pre] (A2)
+    edge [pre, bend left] (B3)
+    edge [post] (G3)
+    edge [post, bend right=10] (A2)
+    edge [post, bend left] (A3);
+
+    \node [transition] at (-2, 10.5) (einv3) {}
+    edge [pre] (F3)
+    edge [post, bend right] (C3)
+    edge [post, bend right=25] (A3);
+
+    \node [transition] at (0, 10.5) (eninv3) {}
+    edge [pre] (G3)
+    edge [post, bend right=5] (C3);
+
+    \node [transition] at (3, 1.5) (f4) {}
+    edge [pre] (A4)
+    edge [pre, bend left] (C4)
+    edge [post] (B4);
+
+    \node [transition] at (-3, 1.5) (f2) {}
+    edge [pre] (A2)
+    edge [pre, bend left] (C2)
+    edge [post] (B2);
+
+    \end{tikzpicture}
+\end{center}

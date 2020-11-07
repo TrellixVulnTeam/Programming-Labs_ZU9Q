@@ -1,0 +1,110 @@
+\subsection*{Варіант 1}
+
+\begin{center}
+    \begin{tikzpicture}
+    [node distance=1.3cm,on grid,>=stealth',bend angle=25,auto,
+    every place/.style= {minimum size=6mm,thick,draw=blue!75,fill=blue!20},
+    every transition/.style={thick,draw=black!75,fill=black!20},
+    red place/.style= {place,draw=red!75,fill=red!20}]
+
+    \node [place,tokens=1] at (-6, 0) (A1) {};
+    \node [place] at (-6, 3) (B1) {};
+    \node [place,tokens=1] at (-7.5, 1) (C1) {};
+
+    \node [place,tokens=1] at (-3, 0) (A2) {};
+    \node [place] at (-3, 3) (B2) {};
+    \node [place,tokens=1] at (-4.5, 1) (C2) {};
+
+    \node [place,tokens=1] at (0, 0) (A3) {};
+    \node [place] at (0, 3) (B3) {};
+    \node [place,tokens=1] at (-1.5, 1) (C3) {};
+
+    \node [place,tokens=1] at (3, 0) (A4) {};
+    \node [place] at (3, 3) (B4) {};
+    \node [place,tokens=1] at (1.5, 1) (C4) {};
+
+    \node [place,tokens=1] at (6, 0) (A5) {};
+    \node [place] at (6, 3) (B5) {};
+    \node [place,tokens=1] at (4.5, 1) (C5) {};
+
+    \node [transition] at (-6, 1.5) (f1) {}
+    edge [pre] (A1)
+    edge [pre, bend left] (C1)
+    edge [pre, bend right] (C2)
+    edge [post] (B1);
+
+    \node [transition] at (-6, 4.5) (e1) {}
+    edge [pre] (B1)
+    edge [post] (C1)
+    edge [post] (C2)
+    edge [post, bend right] (A1);
+
+    \node [transition] at (-3, 1.5) (f2) {}
+    edge [pre] (A2)
+    edge [pre, bend left] (C2)
+    edge [pre, bend right] (C3)
+    edge [post] (B2);
+
+    \node [transition] at (-3, 4.5) (e2) {}
+    edge [pre] (B2)
+    edge [post] (C2)
+    edge [post] (C3)
+    edge [post, bend right] (A2);
+
+    \node [transition] at (0, 1.5) (f3) {}
+    edge [pre] (A3)
+    edge [pre, bend left] (C3)
+    edge [pre, bend right] (C4)
+    edge [post] (B3);
+
+    \node [transition] at (0, 4.5) (e3) {}
+    edge [pre] (B3)
+    edge [post] (C3)
+    edge [post] (C4)
+    edge [post, bend right] (A3);
+
+    \node [transition] at (3, 1.5) (f4) {}
+    edge [pre] (A4)
+    edge [pre, bend left] (C4)
+    edge [pre, bend right] (C5)
+    edge [post] (B4);
+
+    \node [transition] at (3, 4.5) (e4) {}
+    edge [pre] (B4)
+    edge [post] (C4)
+    edge [post] (C5)
+    edge [post, bend right] (A4);
+
+    \node [transition] at (6, 1.5) (f5) {}
+    edge [pre] (A5)
+    edge [pre, bend left] (C5)
+    edge [pre, bend left=50] (C1)
+    edge [post] (B5);
+
+    \node [transition] at (6, 4.5) (e5) {}
+    edge [pre] (B5)
+    edge [post] (C5)
+    edge [post, bend right=25] (C1)
+    edge [post, bend right] (A5);
+
+    \end{tikzpicture}
+\end{center}
+
+Тут і надалі будемо нумерувати рівні позицій(кулі) та переходів(квадрати) знизу догори
+(окремо позиції та переходи).
+Тобто, вершини рівню 1 - це найнижчі 5 позицій у графі вище.
+Позиції рівню 1 - це найнижчі 5 переходів у графі вище.
+
+Опишемо значення переходів та позицій цього варіатну мережі Петрі.
+Позиції:
+\begin{enumerate}
+    \item Філософ гуляє
+    \item Виделка лежить на своєму місці
+    \item Філософ обідає
+\end{enumerate}
+
+Переходи:
+\begin{enumerate}
+    \item Філософ бере 2 виделки
+    \item Філософ повертається до прогулянки та кладе виделки на місце
+\end{enumerate}

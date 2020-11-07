@@ -1,0 +1,20 @@
+\section*{Додатки}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\lstset{
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    otherkeywords={self},
+    keywordstyle=\color{deepblue},
+    emph={MyClass,__init__, @abstractmethod, @property},
+    emphstyle=\color{deepred},
+    stringstyle=\color{deepgreen},
+    showstringspaces=false
+}
+
+Далі наведено програмний код імплементованих мереж Петрі.
+
+\lstinputlisting[language=python]{../src/PetriNet.py}
+\lstinputlisting[language=python]{../src/tasks.py}

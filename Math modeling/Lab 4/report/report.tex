@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[english, ukrainian]{babel}
+
+\usepackage{mathtext}
+\usepackage{cmap}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{listings}
+
+\setlength{\parskip}{0.5em}
+
+\title{\vspace{-5em}Лабораторна робота №4 з \par
+Математичного моделювання}
+\author{Шкаліков Олег, ФІ-81}
+
+\date{ 10 листопада 2020 р.}
+
+\begin{document}
+
+\maketitle
+
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+
+\input{Tasks/1.19.tex}
+\pagebreak
+\section*{Завдання 2}
+Для виконання завдання варіанту 4 було обрано метод
+поступового ускладнення моделей з 1, 2 та 3 варіантів.
+Тому розглянемо процес створення мережі Петрі покроково.
+У доданках до цього протоколу наведено програмну реалізацію
+описаних мереж Петрі на мові Python за допомогою яких ми перевіряли
+корректність наведених моделей.
+\input{Tasks/2.1.tex}
+\input{Tasks/2.2.tex}
+\input{Tasks/2.3.tex}
+\input{Tasks/2.4.tex}
+\pagebreak
+\input{Tasks/listing.tex}
+
+\end{document}
