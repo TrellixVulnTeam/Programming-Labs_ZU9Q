@@ -17,9 +17,9 @@ TEST_F(LinkedListTest, copyCtorTest)
 {
     LinkedList<int> list = { 4, 5, 6};
     auto copy = list;
-    
+
     EXPECT_EQ(list.size(), copy.size());
-        
+
     for(auto it = list.cbegin(), jt = copy.cbegin(); it != list.cend(); it++, jt++)
     {
         EXPECT_EQ(*it, *jt);
@@ -51,9 +51,9 @@ TEST_F(LinkedListTest, backThrowIfEmptyTest)
 TEST_F(LinkedListTest, pushBackTest)
 {
     int pr_size = _size;
-    
+
     push_back(4);
-    
+
     EXPECT_EQ(4, _tail->previous->data);
     EXPECT_EQ(++pr_size, _size);
 }
@@ -94,8 +94,9 @@ TEST_F(LinkedListTest, insertEndTest)
 {
     int prSize = _size;
 
-    insert(cend() - 1, 11);
+    auto it = insert(cend() - 1, 11);
 
+    EXPECT_EQ(11, *it);
     EXPECT_EQ(11, _tail->previous->data);
     EXPECT_EQ(++prSize, _size);
 }
@@ -106,9 +107,10 @@ TEST_F(LinkedListTest, insertMiddleTest)
     int first = _head->next->data;
     int last = _tail->previous->data;
 
-    insert(cbegin() + 1, 12);
+    auto it = insert(cbegin() + 1, 12);
 
     EXPECT_EQ(12, _head->next->next->next->data);
+    EXPECT_EQ(12, *it);
     EXPECT_EQ(++prSize, _size);
     EXPECT_EQ(first, _head->next->data);
     EXPECT_EQ(last, _tail->previous->data);
@@ -126,7 +128,7 @@ TEST_F(LinkedListTest, removeByValueTest)
         {
             flag = true;
             break;
-        }            
+        }
         current = current->next;
     }
     EXPECT_FALSE(flag);
@@ -151,17 +153,17 @@ TEST_F(LinkedListTest, removeByIteratorTest)
 TEST_F(LinkedListTest, removeByIteratorRangeTest)
 {
     int first = _head->next->data;
-    int last = _tail->previous->data;     
+    int last = _tail->previous->data;
 
     remove(cbegin() + 1, cend() - 2);
-    
+
     EXPECT_EQ(2, _size);
     EXPECT_EQ(first, _head->next->data);
     EXPECT_EQ(last, _tail->previous->data);
 }
 
 TEST_F(LinkedListTest, iterationTest)
-{    
+{
     auto current = _head->next;
     for(int& value : *this)
     {

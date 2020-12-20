@@ -9,7 +9,7 @@ Stack<T, Container>::Stack(std::initializer_list<T> values)
     for (auto &&value : values)
     {
         push(value);
-    }  
+    }
 }
 
 template<typename T, typename Container>
@@ -27,25 +27,25 @@ Stack<T, Container>::Stack(const Stack<T, Container>& other)
 template<typename T, typename Container>
 std::size_t Stack<T, Container>::size() const noexcept
 {
-    _container.size();
+    return _container.size();
 }
 
 template<typename T, typename Container>
 bool Stack<T, Container>::empty() const noexcept
 {
-    _container.empty();
+    return _container.empty();
 }
 
 template<typename T, typename Container>
 T& Stack<T, Container>::top()
 {
-    _container.back();
+    return _container.back();
 }
 
 template<typename T, typename Container>
 const T& Stack<T, Container>::top() const
 {
-    _container.back();
+    return _container.back();
 }
 
 template<typename T, typename Container>

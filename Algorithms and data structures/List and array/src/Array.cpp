@@ -2,209 +2,209 @@
 
 #pragma region Array
 
-template<typename T, typename Allocator>
-Array<T, Allocator>::Array(size_t capacity) : _size(0), _capacity(capacity)
-{   
-    _data = _allocator.allocate(_capacity);    
+template<typename T>
+Array<T>::Array(size_t capacity) : _size(0), _capacity(capacity)
+{
+    _data = new T[_capacity];
 }
 
-template<typename T, typename Allocator>
-Array<T, Allocator>::Array(std::initializer_list<T> list): _size(0)
+template<typename T>
+Array<T>::Array(std::initializer_list<T> list): _size(0)
 {
-    _capacity = list.size();    
-    _data = _allocator.allocate(_capacity);
+    _capacity = list.size();
+    _data = new T[_capacity];
     for(auto& v : list)
     {
         push_back(v);
     }
 }
 
-template<typename T, typename Allocator>
-Array<T, Allocator>::Array(const Array<T, Allocator>& other)
+template<typename T>
+Array<T>::Array(const Array<T>& other)
 {
     _size = other._size;
     _capacity = other._size;
-    _data = _allocator.allocate(_capacity);
+    _data = new T[_capacity];
     std::copy(other._data, other._data + _size, _data);
 }
 
-template<typename T, typename Allocator>
-Array<T, Allocator>::~Array()
+template<typename T>
+Array<T>::~Array()
 {
-    _allocator.deallocate(_data, _capacity);
+    delete[] _data;
 }
 
-template<typename T, typename Allocator>
-inline size_t Array<T, Allocator>::size() const noexcept
+template<typename T>
+inline size_t Array<T>::size() const noexcept
 {
     return _size;
 }
 
-template<typename T, typename Allocator>
-inline size_t Array<T, Allocator>::capacity() const noexcept
+template<typename T>
+inline size_t Array<T>::capacity() const noexcept
 {
     return _capacity;
 }
 
-template<typename T, typename Allocator>
-inline bool Array<T, Allocator>::empty() const noexcept
+template<typename T>
+inline bool Array<T>::empty() const noexcept
 {
     return _size == 0;
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::shrinkToFit() noexcept
+template<typename T>
+void Array<T>::shrinkToFit() noexcept
 {
     resize(_size);
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::resize(size_t newSize)
+template<typename T>
+void Array<T>::resize(size_t newSize)
 {
     if(newSize < _size)
         throw std::exception();
 
     _capacity = newSize;
 
-    T* newData = _allocator.allocate(newSize);
+    T* newData = new T[newSize];
     std::copy(_data, _data+_size, newData);
-    _allocator.deallocate(_data, _size);
+    delete[] _data;
     _data = newData;
 }
 
-template<typename T, typename Allocator>
-inline void Array<T, Allocator>::increase()
+template<typename T>
+inline void Array<T>::increase()
 {
     resize(2 * _capacity);
 }
 
-template<typename T, typename Allocator>
-inline void Array<T, Allocator>::decrease()
+template<typename T>
+inline void Array<T>::decrease()
 {
     resize(_capacity / 2);
 }
 
-template<typename T, typename Allocator>
-inline typename Array<T, Allocator>::iterator Array<T, Allocator>::begin() const noexcept
+template<typename T>
+inline typename Array<T>::iterator Array<T>::begin() const noexcept
 {
     return iterator(_data);
 }
 
-template<typename T, typename Allocator>
-inline typename Array<T, Allocator>::iterator Array<T, Allocator>::end() const noexcept
+template<typename T>
+inline typename Array<T>::iterator Array<T>::end() const noexcept
 {
     return iterator(_data + _size);
 }
 
-template<typename T, typename Allocator>
-inline typename Array<T, Allocator>::const_iterator Array<T, Allocator>::cbegin() const noexcept
+template<typename T>
+inline typename Array<T>::const_iterator Array<T>::cbegin() const noexcept
 {
     return const_iterator(_data);
 }
 
-template<typename T, typename Allocator>
-typename Array<T, Allocator>::const_iterator Array<T, Allocator>::cend() const noexcept
+template<typename T>
+typename Array<T>::const_iterator Array<T>::cend() const noexcept
 {
     return const_iterator(_data + _size);
 }
 
-template<typename T, typename Allocator>
-const T& Array<T, Allocator>::front() const
+template<typename T>
+const T& Array<T>::front() const
 {
     if(_size == 0)
         throw std::length_error("Array is empty");
     return _data[0];
 }
 
-template<typename T, typename Allocator>
-T& Array<T, Allocator>::front()
+template<typename T>
+T& Array<T>::front()
 {
     if(_size == 0)
         throw std::length_error("Array is empty");
     return _data[0];
 }
 
-template<typename T, typename Allocator>
-const T& Array<T, Allocator>::back() const
+template<typename T>
+const T& Array<T>::back() const
 {
     if(_size == 0)
         throw std::length_error("Array is empty");
     return _data[_size - 1];
 }
 
-template<typename T, typename Allocator>
-T& Array<T, Allocator>::back()
+template<typename T>
+T& Array<T>::back()
 {
     if(_size == 0)
         throw std::length_error("Array is empty");
     return _data[_size - 1];
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::push_back(const T& value)
+template<typename T>
+void Array<T>::push_back(const T& value)
 {
     if(_size >= _capacity)
         increase();
-    
+
     _data[_size] = value;
     _size++;
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::push_back(T&& value)
+template<typename T>
+void Array<T>::push_back(T&& value)
 {
     if(_size >= _capacity)
         increase();
-    
+
     _data[_size] = std::move(value);
     _size++;
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::push_front(const T& value)
+template<typename T>
+void Array<T>::push_front(const T& value)
 {
     if(_size >= _capacity)
         increase();
-    
+
     for(int i = _size - 1; i >= 0; i--)
         _data[i + 1] = _data[i];
     _data[0] = value;
-    
+
     _size++;
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::push_front(T&& value)
+template<typename T>
+void Array<T>::push_front(T&& value)
 {
     if(_size >= _capacity)
         increase();
-    
+
     for(int i = _size - 1; i >= 0; i--)
         _data[i + 1] = _data[i];
     _data[0] = std::move(value);
-    
+
     _size++;
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::pop_back()
+template<typename T>
+void Array<T>::pop_back()
 {
     if(empty())
         throw std::length_error("Array is empty");
     remove(cend() - 1);
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::pop_front()
+template<typename T>
+void Array<T>::pop_front()
 {
     if(empty())
         throw std::length_error("Array is empty");
     remove(cbegin());
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::remove(const T& value)
-{    
+template<typename T>
+void Array<T>::remove(const T& value)
+{
     for(int i = 0; i < _size; i++)
     {
         if(_data[i] == value)
@@ -212,14 +212,14 @@ void Array<T, Allocator>::remove(const T& value)
             remove(const_iterator(_data + i));
             i--;
         }
-    }    
+    }
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::remove(const_iterator position)
-{   
+template<typename T>
+void Array<T>::remove(const_iterator position)
+{
     if(position >= cend() || position < cbegin())
-        throw std::out_of_range("Iterators out of container"); 
+        throw std::out_of_range("Iterators out of container");
 
     for(auto it = position + 1; it != cend(); it++, position++)
     {
@@ -231,8 +231,8 @@ void Array<T, Allocator>::remove(const_iterator position)
         decrease();
 }
 
-template<typename T, typename Allocator>
-void Array<T, Allocator>::remove(const_iterator first, const_iterator last)
+template<typename T>
+void Array<T>::remove(const_iterator first, const_iterator last)
 {
     if(first >= cend() || first < cbegin() || last >= cend() || first < cbegin())
         throw std::out_of_range("Iterators out of container");
@@ -250,8 +250,8 @@ void Array<T, Allocator>::remove(const_iterator first, const_iterator last)
         decrease();
 }
 
-template<typename T, typename Allocator>
-typename Array<T, Allocator>::iterator Array<T, Allocator>::insert(const_iterator position, const T& value)
+template<typename T>
+typename Array<T>::iterator Array<T>::insert(const_iterator position, const T& value)
 {
     if(position >= cend() || position < cbegin())
         throw std::out_of_range("Iterators out of container");
@@ -261,18 +261,18 @@ typename Array<T, Allocator>::iterator Array<T, Allocator>::insert(const_iterato
     _size++;
 
     for(auto it = cend() - 2; it != position ; it--) //cend() - 2 is last item
-    {        
+    {
         *(it + 1).ptr = *it;
-    }        
-    
+    }
+
     auto dest = (position + 1).ptr;
     *dest = value;
 
     return iterator(dest);
 }
 
-template<typename T, typename Allocator>
-typename Array<T, Allocator>::iterator Array<T, Allocator>::insert(const_iterator position, T&& value)
+template<typename T>
+typename Array<T>::iterator Array<T>::insert(const_iterator position, T&& value)
 {
     if(position >= cend() || position < cbegin())
         throw std::out_of_range("Iterators out of container");
@@ -282,9 +282,9 @@ typename Array<T, Allocator>::iterator Array<T, Allocator>::insert(const_iterato
     _size++;
 
     for(auto it = cend() - 2; it != position ; it--) //cend() - 2 is last item
-    {        
+    {
         *(it + 1).ptr = *it;
-    }        
+    }
 
     auto dest = (position + 1).ptr;
     *dest = std::move(value);
@@ -292,14 +292,14 @@ typename Array<T, Allocator>::iterator Array<T, Allocator>::insert(const_iterato
     return iterator(dest);
 }
 
-template<typename T, typename Allocator>
-inline void Array<T,Allocator>::clear() noexcept
+template<typename T>
+inline void Array<T>::clear() noexcept
 {
-    _size = 0;    
+    _size = 0;
 }
 
-template<typename T, typename Allocator>
-T& Array<T, Allocator>::operator[](int index)
+template<typename T>
+T& Array<T>::operator[](int index)
 {
     if(index >= _size || index < 0)
         throw std::out_of_range("Iterators out of container");
@@ -307,8 +307,8 @@ T& Array<T, Allocator>::operator[](int index)
     return _data[index];
 }
 
-template<typename T, typename Allocator>
-const T& Array<T, Allocator>::operator[](int index) const
+template<typename T>
+const T& Array<T>::operator[](int index) const
 {
     if(index >= _size || index < 0)
         throw std::out_of_range("Iterators out of container");
@@ -332,7 +332,7 @@ array_iterator<T>::array_iterator(array_iterator<T>::real_type* pointer)
 template<typename T>
 array_iterator<T>::array_iterator(const array_iterator& other)
 {
-    ptr = other.ptr;    
+    ptr = other.ptr;
 }
 
 template<typename T>
@@ -411,7 +411,7 @@ array_iterator<T> array_iterator<T>::operator[](array_iterator<T>::difference_ty
 
 template<typename T>
 inline typename array_iterator<T>::difference_type array_iterator<T>::operator-(const array_iterator<T>& other)
-{    
+{
     return ptr - other.ptr;
 }
 

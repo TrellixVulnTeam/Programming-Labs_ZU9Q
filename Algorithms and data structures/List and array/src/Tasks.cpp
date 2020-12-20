@@ -6,7 +6,7 @@ void Load(std::istream& stream, Text& text)
     auto word = Array<char>(1);
 
     while (true)
-    {       
+    {
         stream.get(current);
 
         if(stream.eof())
@@ -15,7 +15,7 @@ void Load(std::istream& stream, Text& text)
                 text.push_back(word);
             break;
         }
-            
+
 
         if(current != ' ')
             word.push_back(current);
@@ -28,20 +28,21 @@ void Load(std::istream& stream, Text& text)
                 word.shrinkToFit();
                 text.push_back(word);
                 word.clear();
-            }            
-        }        
-    }    
+            }
+        }
+    }
 }
 
 std::ostream& Write(std::ostream& stream, const Text& text)
 {
     for(auto&& word : text)
     {
-        for(auto&& letter : word)            
-            stream << letter;                            
-                    
+        for(auto&& letter : word)
+            stream << letter;
+
         stream << ' ';
     }
+    return stream;
 }
 
 std::ostream& Task1(std::ostream& stream, const Text& text)
@@ -77,7 +78,7 @@ std::ostream& Task2(std::ostream& stream, const Text& text)
             {
                 flag = false;
                 break;
-            }            
+            }
         }
 
         if(flag)
@@ -87,7 +88,7 @@ std::ostream& Task2(std::ostream& stream, const Text& text)
                 stream << *it;
             }
             stream << "." << std::endl;
-        }        
+        }
     }
     return stream;
 }
@@ -116,8 +117,8 @@ std::ostream& Task3(std::ostream& stream, const Text& text)
     return stream;
 }
 
-template<typename T, typename Allocator>
-bool isEqual(const Array<T, Allocator>& first, const Array<T, Allocator>& second)
+template<typename T>
+bool isEqual(const Array<T>& first, const Array<T>& second)
 {
     if(first.size() != second.size())
         return false;
@@ -160,11 +161,11 @@ std::ostream& Task4(std::ostream& stream, const Text& text)
                         stream << *it;
                     }
                     stream << std::endl;
-                }   
+                }
             }
         }
     }
-    
+
     return stream;
 }
 
@@ -176,8 +177,8 @@ int countChar(const Text& text, char symbol)
         for (auto &&letter : word)
         {
             if(letter == symbol)
-                counter++;       
-        }        
+                counter++;
+        }
     }
     return counter;
 }

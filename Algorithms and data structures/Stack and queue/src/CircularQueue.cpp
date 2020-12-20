@@ -2,131 +2,123 @@
 #include <array>
 
 
-template<typename T, int capacity, typename Allocator>
-CircularQueue<T, capacity, Allocator>::CircularQueue() : _size(0), _head(0), _tail(-1)
+template<typename T, int capacity>
+CircularQueue<T, capacity>::CircularQueue() : _size(0), _head(0), _tail(-1)
 {
-    _data = _allocator.allocate(capacity);
+    _data = new T[capacity];
 }
 
-template<typename T, int capacity, typename Allocator>
-CircularQueue<T, capacity, Allocator>::CircularQueue(T* data, int size)
+template<typename T, int capacity>
+CircularQueue<T, capacity>::CircularQueue(T* data, int size)
 {
-    _data = _allocator.allocate(capacity);
+    _data = new T[capacity];
     std::copy(data, data + size, _data);
+
     _tail = _size - 1;
     _head = 0;
     _size = size;
 }
 
-template<typename T, int capacity, typename Allocator>
-CircularQueue<T, capacity, Allocator>::CircularQueue(std::array<T, capacity> data)
+template<typename T, int capacity>
+CircularQueue<T, capacity>::CircularQueue(const CircularQueue& other) : _head(0)
 {
-    _data = _allocator.allocate(capacity);
-    std::copy(data.cbegin(), data.cend(), _data);
-    _tail = data.size - 1;
-    _head = 0;
-    _size = data.size;
-}
-
-template<typename T, int capacity, typename Allocator>
-CircularQueue<T, capacity, Allocator>::CircularQueue(const CircularQueue& other)
-{
-    _data = _allocator.allocate(capacity);
+    _data = new T[capacity];
     for(int i = 0; i < other._size; i++)
     {
         _data[i] = other._data[(other._head + i) % capacity];
     }
-    _head = 0;
+
     _tail = other._size - 1;
     _size = other._size;
 }
 
-template<typename T, int capacity, typename Allocator>
-CircularQueue<T, capacity, Allocator>::CircularQueue(std::initializer_list<T> values) : _size(0), _head(0), _tail(-1)
+template<typename T, int capacity>
+CircularQueue<T, capacity>::CircularQueue(std::initializer_list<T> values) : _size(0), _head(0), _tail(-1)
 {
-    _data = _allocator.allocate(capacity);
+    _data =  new T[capacity];
     if(values.size() > capacity)
         throw std::length_error("CircularQueue capacity less than init values");
+
     for (auto &&value : values)
     {
         push(value);
     }
 }
 
-template<typename T, int capacity, typename Allocator>
-CircularQueue<T, capacity, Allocator>::~CircularQueue()
+template<typename T, int capacity>
+CircularQueue<T, capacity>::~CircularQueue()
 {
-    _allocator.deallocate(_data, capacity);
+    delete[] _data;
 }
 
-template<typename T, int capacity, typename Allocator>
-size_t CircularQueue<T, capacity, Allocator>::size() const noexcept
+template<typename T, int capacity>
+size_t CircularQueue<T, capacity>::size() const noexcept
 {
     return _size;
 }
 
-template<typename T, int capacity, typename Allocator>
-bool CircularQueue<T, capacity, Allocator>::empty() const noexcept
+template<typename T, int capacity>
+bool CircularQueue<T, capacity>::empty() const noexcept
 {
     return _size == 0;
 }
 
-template<typename T, int capacity, typename Allocator>
-T& CircularQueue<T, capacity, Allocator>::front()
+template<typename T, int capacity>
+T& CircularQueue<T, capacity>::front()
 {
     if(empty())
         throw std::length_error("CircularQueue is empty");
     return _data[_head];
 }
 
-template<typename T, int capacity, typename Allocator>
-const T& CircularQueue<T, capacity, Allocator>::front() const
+template<typename T, int capacity>
+const T& CircularQueue<T, capacity>::front() const
 {
     if(empty())
         throw std::length_error("CircularQueue is empty");
     return _data[_head];
 }
 
-template<typename T, int capacity, typename Allocator>
-T& CircularQueue<T, capacity, Allocator>::back()
+template<typename T, int capacity>
+T& CircularQueue<T, capacity>::back()
 {
     if(empty())
         throw std::length_error("CircularQueue is empty");
     return _data[_tail];
 }
 
-template<typename T, int capacity, typename Allocator>
-const T& CircularQueue<T, capacity, Allocator>::back() const
+template<typename T, int capacity>
+const T& CircularQueue<T, capacity>::back() const
 {
     if(empty())
         throw std::length_error("CircularQueue is empty");
     return _data[_tail];
 }
 
-template<typename T, int capacity, typename Allocator>
-void CircularQueue<T, capacity, Allocator>::push(T&& value)
+template<typename T, int capacity>
+void CircularQueue<T, capacity>::push(T&& value)
 {
     if(_size == capacity)
         throw std::length_error("CircularQueue is full");
-    
+
     _tail = (_tail + 1) % capacity;
     _data[_tail] = std::move(value);
     _size++;
 };
 
-template<typename T, int capacity, typename Allocator>
-void CircularQueue<T, capacity, Allocator>::push(const T& value)
+template<typename T, int capacity>
+void CircularQueue<T, capacity>::push(const T& value)
 {
     if(_size == capacity)
         throw std::length_error("CircularQueue is full");
-    
+
     _tail = (_tail + 1) % capacity;
     _data[_tail] = value;
     _size++;
 };
 
-template<typename T, int capacity, typename Allocator>
-void CircularQueue<T, capacity, Allocator>::pop()
+template<typename T, int capacity>
+void CircularQueue<T, capacity>::pop()
 {
     if(empty())
         throw std::length_error("CircularQueue is empty");

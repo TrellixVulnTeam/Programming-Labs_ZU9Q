@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
+#include <unordered_map>
 
 #include "../src/InfixToPostfix.h"
 
@@ -31,10 +32,10 @@ TEST(infixToPostfix, throwIfIncorrectBrackets)
 
 TEST(infixToPostfix, calculate)
 {
-    std::string infix = "(A+B)/B-A";        
-    std::map<char, int> map;
-    map.insert(std::pair('A', 12));
-    map.insert(std::pair('B', 6));
+    std::string infix = "(A+B)/B-A";
+    std::unordered_map<char, int> map;
+    map['A'] = 12;
+    map['B'] = 6;
 
-    ASSERT_EQ(-9, calculate_infix(infix, map));
+    ASSERT_EQ(-9, calculate_infix(infix, map, get_base_operation_map()));
 }

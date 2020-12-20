@@ -4,20 +4,18 @@
 #include <memory>
 #include "IQueue.h"
 
-template<typename T, int capacity, typename Allocator=std::allocator<T>>
+template<typename T, int capacity>
 class CircularQueue : IQueue<T>
 {
 private:
     T* _data;
-    Allocator _allocator;
-    int _size;    
+    int _size;
     int _head;
     int _tail;
 
 public:
     CircularQueue();
     CircularQueue(T*, int);
-    CircularQueue(std::array<T, capacity>);
     CircularQueue(std::initializer_list<T>);
     CircularQueue(const CircularQueue&);
     ~CircularQueue();

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <functional>
+#include <unordered_map>
 
 #include "InfixToPostfix.h"
 #include "Stack.h"
@@ -30,15 +31,17 @@ CharType getSymbolType(char symbol)
 }
 
 int getOperatorPriority(char operatorSymbol)
-{    
+{
     switch (operatorSymbol)
     {
     case '+':
     case '-':
-        return 0;        
+        return 0;
     case '*':
     case '/':
         return 1;
+    default:
+        return -999;
     }
 }
 
@@ -67,27 +70,27 @@ std::string infixToPostfix(const std::string& infix)
         auto type = getSymbolType(symbol);
         switch (type)
         {
-        case CharType::Operand:        
+        case CharType::Operand:
             result += symbol;
-            break;        
+            break;
         case CharType::BeginBlock:
             stash.push(symbol);
             break;
-        case CharType::EndBlock:         
+        case CharType::EndBlock:
             while (getSymbolType(stash.top()) != CharType::BeginBlock)
             {
                 result += stash.top();
                 stash.pop();
             }
-            stash.pop();            
+            stash.pop();
             break;
         case CharType::Operator:
-        {                        
+        {
             int symbolPriority = getOperatorPriority(symbol);
             int topPriority = 0;
             if(!stash.empty())
                 topPriority = getOperatorPriority(stash.top());
-            
+
             auto isTopBegin = [&stash](){ return (getSymbolType(stash.top()) == CharType::BeginBlock); };
 
             while(!stash.empty() && !isTopBegin() && symbolPriority <= topPriority)
@@ -104,19 +107,32 @@ std::string infixToPostfix(const std::string& infix)
     }
 
     while (!stash.empty())
-    {            
+    {
         result += stash.top();
-        stash.pop();        
+        stash.pop();
     }
-    
+
     return result;
 }
 
-template<typename Container = std::vector<int>>
-int calculate_infix(const std::string& infix, std::map<char, int> values)
+
+auto get_base_operation_map()
+{
+    std::unordered_map<char, std::function<int(int, int)>> operation_map;
+
+    operation_map['+'] = [](int a, int b) { return a + b; };
+    operation_map['-'] = [](int a, int b) { return a - b; };
+    operation_map['*'] = [](int a, int b) { return a * b; };
+    operation_map['/'] = [](int a, int b) { return a / b; };
+
+    return operation_map;
+}
+
+template <typename Container = std::vector<int>>
+int calculate_infix(const std::string &infix, std::unordered_map<char, int> values, std::unordered_map<char, std::function<int(int, int)>> operation_map)
 {
     std::string postfix = infixToPostfix(infix);
-    
+
     Stack<int, Container> stash;
 
     for(auto&& symbol : postfix)
@@ -125,26 +141,25 @@ int calculate_infix(const std::string& infix, std::map<char, int> values)
         switch(type)
         {
             case CharType::Operand:
-                stash.push(values[symbol]);
+                if(values.contains(symbol))
+                    stash.push(values[symbol]);
+                else
+                    throw std::exception();
                 break;
             case CharType::Operator:
-            {                                
+            {
                 auto second = stash.top();
                 stash.pop();
                 auto first = stash.top();
                 stash.pop();
-                                
-                if(symbol == '+')
-                    stash.push(first + second);
-                else if(symbol == '-')
-                    stash.push(first - second);
-                else if(symbol == '/')
-                    stash.push(first / second);
-                else if(symbol == '*')
-                   stash.push(first * second);                
+
+                if (operation_map.contains(symbol))
+                    stash.push(operation_map[symbol](first, second));
+                else
+                    throw std::exception();
             }
             default:
-                break;    
+                break;
         }
     }
 

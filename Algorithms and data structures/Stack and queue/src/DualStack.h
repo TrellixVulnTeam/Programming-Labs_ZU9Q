@@ -4,22 +4,19 @@
 #include <memory>
 #include "IStack.h"
 
-template<typename T, uint capacity, typename Allocator = std::allocator<T>>
+template<typename T, uint capacity>
 class DualStack : IStack<T>
 {
     enum State
     {
         First,
-        Second,
-        NotSelected
+        Second
     };
 
 private:
     T* _data;
     int _size1;
-    int _size2;    
-
-    Allocator _allocator;
+    int _size2;
 
     State state;
     void checkState();
@@ -31,7 +28,6 @@ public:
 
     DualStack& first() noexcept;
     DualStack& second() noexcept;
-    DualStack& unset() noexcept;
 
     State getState() const noexcept;
 

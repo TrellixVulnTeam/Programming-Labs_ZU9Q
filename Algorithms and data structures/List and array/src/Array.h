@@ -7,14 +7,13 @@ template <typename ValueType>
 class array_iterator;
 
 //Dynamic array
-template<typename T, typename Allocator = std::allocator<T> >
+template<typename T>
 class Array
 {
 protected:
     size_t _capacity;
     size_t _size;
     T* _data;
-    Allocator _allocator;
 
     void resize(size_t);
     void increase();
@@ -23,9 +22,8 @@ protected:
 public:
     using iterator = array_iterator<T>;
     using const_iterator = array_iterator<const T>;
-    
+
     using value_type = T;
-    using allocator_type = Allocator;
     using size_type = size_t;
     using difference_type = std::ptrdiff_t;
     using reference = value_type&;
@@ -33,9 +31,9 @@ public:
     using pointer = T*;
     using const_pointer = const T*;
 
-    Array(size_t capacity = 10);    
+    Array(size_t capacity = 10);
     Array(std::initializer_list<T>);
-    Array(const Array<T, Allocator>&);
+    Array(const Array<T>&);
     ~Array();
 
     size_t size() const noexcept;
@@ -50,7 +48,7 @@ public:
     const_iterator cend() const noexcept;
 
     const T& front() const;
-    T& front();    
+    T& front();
     const T& back() const;
     T& back();
 
@@ -69,7 +67,7 @@ public:
     iterator insert(const_iterator, const T&);
     iterator insert(const_iterator, T&&);
 
-    void clear() noexcept;   
+    void clear() noexcept;
 
     T& operator[](int);
     const T& operator[](int) const;
@@ -86,7 +84,7 @@ public:
     //for stl methods
     using value_type = T;
     using reference = T&;
-    using iterator_category = std::random_access_iterator_tag; 
+    using iterator_category = std::random_access_iterator_tag;
     using pointer = T*;
     using difference_type = int;
 

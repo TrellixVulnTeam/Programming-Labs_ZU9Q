@@ -9,7 +9,7 @@ Queue<T, Container>::Queue(std::initializer_list<T> values)
     for (auto &&value : values)
     {
         push(value);
-    }    
+    }
 }
 
 template<typename T, typename Container>
@@ -27,37 +27,37 @@ Queue<T, Container>::Queue(const Queue<T, Container>& other)
 template<typename T, typename Container>
 std::size_t Queue<T, Container>::size() const noexcept
 {
-    _container.size();
+    return _container.size();
 }
 
 template<typename T, typename Container>
 bool Queue<T, Container>::empty() const noexcept
 {
-    _container.empty();
+    return _container.empty();
 }
 
 template<typename T, typename Container>
 T& Queue<T, Container>::front()
 {
-    _container.front();
+    return _container.front();
 }
 
 template<typename T, typename Container>
 T& Queue<T, Container>::back()
 {
-    _container.back();
+    return _container.back();
 }
 
 template<typename T, typename Container>
 const T& Queue<T, Container>::front() const
 {
-    _container.front();
+    return _container.front();
 }
 
 template<typename T, typename Container>
 const T& Queue<T, Container>::back() const
 {
-    _container.back();
+    return _container.back();
 }
 
 template<typename T, typename Container>
