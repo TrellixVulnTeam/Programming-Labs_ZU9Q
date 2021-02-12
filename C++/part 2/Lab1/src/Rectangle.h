@@ -1,21 +1,22 @@
 #ifndef RECTANGLE_H
-#define RECTANGLE_H 
+#define RECTANGLE_H
 
-class Rectangle{
+class Rectangle
+{
 public:
     //ctors
-    Rectangle();
     Rectangle(double width, double height);
 
     //Fields methods
-    double GetHeight();
-    double GetWidth();
-    void SetHeight(double);
-    void SetWidth(double);
+    double getHeight() const noexcept;
+    double getWidth() const noexcept;
+    void setHeight(double);
+    void setWidth(double);
 
     //Additional functionality
-    double areaSize();
-    bool isSquare();
+    double areaSize() const noexcept;
+    bool isSquare() const noexcept;
+
 private:
     double height;
     double width;

@@ -1,174 +1,260 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include <stdexcept>
 #include "../src/Array.h"
 
-TEST(ArrayTests, addTest)
+TEST(ArrayTests, push_back)
 {
-    Array<int> array = Array<int>(10);
-    int a = 5;
-    array.Add(a);    
-    ASSERT_EQ(array.GetSize(), 1);
+    Array<int> array;
+    int a = 5, b = 60;
+
+    array.push_back(a);
+
+    ASSERT_EQ(array.size(), 1);
 }
 
-TEST(ArrayTests, removeTest)
+TEST(ArrayTests, remove)
 {
-    Array<int> array = Array<int>();
+    Array<int> array;
     int a = 48, b = 60;
-    array.Add(a);
-    array.Add(b);
-    auto it = array.begin();
-    ++it;
-    array.Remove(it);
-    ASSERT_EQ(array.GetSize(), 1);
-    ASSERT_EQ(array[0], a);
+
+    array.push_back(a);
+    array.push_back(b);
+
+    array.remove(1);
+
+    EXPECT_EQ(array.size(), 1);
+    EXPECT_EQ(array[0], a);
 }
 
-TEST(ArrayTests, updateTest)
+TEST(ArrayTests, update)
 {
-    Array<int> array = Array<int>();
+    Array<int> array;
     int a = 48, b = 60, c = 70;
-    array.Add(a);
-    array.Add(b);
-    auto it = array.begin();
-    it++;
-    array.Update(it, c);
+
+    array.push_back(a);
+    array.push_back(b);
+
+    array.update(1, c);
+
     ASSERT_EQ(array[1], c);
 }
 
-TEST(ArrayTests, findTest)
+TEST(ArrayTests, find)
 {
-    Array<int> array = Array<int>();
+    Array<int> array;
     int a = 48, b = 60, c = 70;
-    array.Add(a);
-    array.Add(b);
-    array.Add(c);
-    auto it = array.Find(b);
-    ASSERT_EQ(*it, b);
+
+    array.push_back(a);
+    array.push_back(b);
+    array.push_back(c);
+
+    auto pos = array.find(b);
+
+    ASSERT_EQ(pos, 1);
 }
 
-TEST(ArrayTest, clearTest)
+TEST(ArrayTests, clear)
 {
-    Array<int> array = Array<int>();
+    Array<int> array;
     int a = 48, b = 60;
-    array.Add(a);
-    array.Add(b);
-    array.Clear();
-    ASSERT_EQ(array.GetSize(), 0);
-    ASSERT_THROW(array[0], OverflowSizeExeception);  
+
+    array.push_back(a);
+    array.push_back(b);
+    array.clear();
+
+    EXPECT_EQ(array.size(), 0);
+    EXPECT_THROW(array[0], std::invalid_argument);
 }
 
-TEST(ArrayTests, outputTest)
+TEST(ArrayTests, output)
 {
-    Array<int> array = Array<int>();
-    Array<int> array2 = Array<int>();
+    Array<int> array;
+    Array<int> array2;
+
     int a = 48, b = 60;
-    array.Add(a);
-    array.Add(b);
-    array2.Add(b);
-    array2.Add(a);
+
+    array.push_back(a);
+    array.push_back(b);
+    array2.push_back(b);
+    array2.push_back(a);
+
     std::ostringstream stream;
     stream << array << array2;
     std::string output = stream.rdbuf()->str();
+
     ASSERT_EQ(output, "48\n60\n60\n48\n");
 }
 
-TEST(ArrayTest, inputTest)
+TEST(ArrayTests, input)
 {
-    Array<int> array = Array<int>(1);
-    Array<int> array2 = Array<int>(1);
+    Array<int> array(2);
+    Array<int> array2(2);
+
     std::stringstream stream;
     stream << 4 << std::endl;
-    stream << "string" << std::endl;    
+
+#ifdef IGNORE_INVALID_STREAM_VALUE
+    stream << "invalid value" << std::endl;
+#endif
+
     stream << 5 << std::endl;
-    stream >> array >> array2;
-    ASSERT_EQ(array[0], 4);
-    ASSERT_EQ(array2[0], 5);
+    stream >> array;
+    stream << 6 << std::endl;
+    stream << 7 << std::endl;
+    stream >> array2;
+
+    EXPECT_EQ(array[0], 4);
+    EXPECT_EQ(array2[0], 6);
+    EXPECT_EQ(array[1], 5);
+    EXPECT_EQ(array2[1], 7);
 }
 
-TEST(ArrayTests, scaleTest)
+TEST(ArrayTests, scale)
 {
-    Array<int> array = Array<int>(1);
+    Array<int> array(1);
     int a = 4, b = 5;
-    array.Add(a);
-    array.Add(b);
-    ASSERT_EQ(array.GetSize(), 2);
-    ASSERT_EQ(array[0], 4);
-    ASSERT_EQ(array[1], 5);
+
+    array.push_back(a);
+    array.push_back(b);
+
+    EXPECT_EQ(array.size(), 2);
+    EXPECT_EQ(array[0], 4);
+    EXPECT_EQ(array[1], 5);
 }
 
 TEST(ArrayTests, indexingCorrect)
 {
-    Array<int> array = Array<int>();
+    Array<int> array;
     int a = 48, b = 60;
-    array.Add(a);
-    array.Add(b);
-    ASSERT_EQ(a, array[0]);
-    ASSERT_EQ(b, array[1]);
+
+    array.push_back(a);
+    array.push_back(b);
+
+    EXPECT_EQ(a, array[0]);
+    EXPECT_EQ(b, array[1]);
 }
 
 TEST(ArrayTests, indexingInCorrect)
 {
-    Array<int> array = Array<int>();
+    Array<int> array;
     int a = 48, b = 60;
-    array.Add(a);
-    array.Add(b);
-    ASSERT_THROW(array[3], OverflowSizeExeception);
+
+    array.push_back(a);
+    array.push_back(b);
+
+    ASSERT_THROW(array[3], std::invalid_argument);
 }
 
 TEST(ArrayTests, plusCorrect)
 {
-    Array<int> array1 = Array<int>();
-    Array<int> array2 = Array<int>();
+    Array<int> array1;
+    Array<int> array2;
+
     int a = 48, b = 60, c = 12, d = -10;
-    array1.Add(a);
-    array1.Add(b);
-    array2.Add(c);
-    array2.Add(d);
-    IAddable<int>* array3 = &(array1 + array2);
-    ASSERT_EQ(array3->GetSize(), 2);
-    ASSERT_EQ(array3->operator[](0), a+c);
-    ASSERT_EQ(array3->operator[](1), b+d);
+
+    array1.push_back(a);
+    array1.push_back(b);
+    array2.push_back(c);
+    array2.push_back(d);
+
+    Array<int> array3 = array1 + array2;
+
+    EXPECT_EQ(array3.size(), 2);
+    EXPECT_EQ(array3[0], a + c);
+    EXPECT_EQ(array3[1], b + d);
 }
 
 TEST(ArrayTests, productCorrect)
 {
-    Array<int> array1 = Array<int>();
-    Array<int> array2 = Array<int>();
+    Array<int> array1;
+    Array<int> array2;
+
     int a = 48, b = 60, c = 12, d = -10;
-    array1.Add(a);
-    array1.Add(b);
-    array2.Add(c);
-    array2.Add(d);
-    IProductable<int>* array3 = &(array1 * array2);
-    ASSERT_EQ(array3->GetSize(), 2);
-    ASSERT_EQ(array3->operator[](0), a*c);
-    ASSERT_EQ(array3->operator[](1), b*d);
+
+    array1.push_back(a);
+    array1.push_back(b);
+    array2.push_back(c);
+    array2.push_back(d);
+
+    Array<int> array3 = array1 * array2;
+
+    EXPECT_EQ(array3.size(), 2);
+    EXPECT_EQ(array3[0], a * c);
+    EXPECT_EQ(array3[1], b * d);
+}
+
+TEST(ArrayTests, plusInCorrect)
+{
+    Array<int> array1;
+    Array<int> array2;
+
+    int a = 48, b = 60, c = 12;
+
+    array1.push_back(a);
+    array1.push_back(b);
+    array2.push_back(c);
+
+    ASSERT_THROW(array1 + array2, std::invalid_argument);
+}
+
+TEST(ArrayTests, productInCorrect)
+{
+    Array<int> array1;
+    Array<int> array2;
+
+    int a = 48, b = 60, c = 12;
+
+    array1.push_back(a);
+    array1.push_back(b);
+    array2.push_back(c);
+
+    ASSERT_THROW(array1 * array2, std::invalid_argument);
 }
 
 class Hard
 {
-    public:
-        Hard():Hard(4,5){}
-        Hard(double A, double B){
-            a = A;
-            b = B;
-        }        
-        Hard operator+(const Hard& h2){
-            return Hard(h2.a + a, h2.b + b);
-        }
-        Hard operator*(const Hard& h2){
-            return Hard(h2.a * a, h2.b * b);
-        }
-    private:
-        double a;
-        double b;
-    };
+public:
+    Hard(double A, double B)
+    {
+        _a = A;
+        _b = B;
+    }
 
-TEST(ArrayTest, hardTemplate)
+    double a() const noexcept
+    {
+        return _a;
+    }
+
+    double b() const noexcept
+    {
+        return _b;
+    }
+
+    Hard operator+(const Hard &h2) noexcept
+    {
+        return Hard(h2._a + _a, h2._b + _b);
+    }
+
+    Hard operator*(const Hard &h2) noexcept
+    {
+        return Hard(h2._a * _a, h2._b * _b);
+    }
+
+private:
+    double _a;
+    double _b;
+};
+
+TEST(ArrayTests, hardTemplate)
 {
-    Array<Hard> array = Array<Hard>();
+    Array<Hard> array;
+
     Hard h1 = Hard(4.0, 5.0);
-    array.Add(h1);
-    IAddable<Hard>* summ = &(array + array);
-    ASSERT_EQ(summ->GetSize(), 1);
+    array.push_back(h1);
+    Array<Hard> summ = array + array;
+
+    EXPECT_EQ(summ.size(), 1);
+    EXPECT_EQ(summ[0].a(), 8);
+    EXPECT_EQ(summ[0].b(), 10);
 }
