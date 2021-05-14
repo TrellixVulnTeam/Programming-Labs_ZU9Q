@@ -75,6 +75,7 @@
 - [Iterative linear solvers](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Linear%20algebra%20methods/reports/iterative/report.pdf)
 - [Eigenvalues](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/Numerical%20methods/Linear%20algebra%20methods/reports/eigen/report.pdf)
 - [Interpolation](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Interpolation/Interpolation.ipynb)
+- [Numerical integration](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Numerical%20integration.ipynb)
 
 ## Ошибки и неточности
 Если Вы заметили какую-либо ошибку или неточность, то оставьте, пожалуйста, сообщений о ней, создав соответвующий issue с точным ее описанием, порядком выполнения действий для воспроизведения и "целевым" файлом.
