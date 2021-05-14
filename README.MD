@@ -1,6 +1,6 @@
 # Programming Labs
 
-Лабораторные работы по дисциплинам, связанным с программированием, 113 специальности ФТИ НТУУ "КПИ им. Игоря Сикорского" за 2018-2020 года.
+Лабораторные работы по некоторым дисциплинам, связанными с программированием, 113 специальности ФТИ НТУУ "КПИ им. Игоря Сикорского" за 2018-2021 года.
 
 Дисциплины, которые вошли в этот репозиторий:
 1. Программирование 1, 2
@@ -10,14 +10,14 @@
 5. Математическое моделирование
 6. Численные методы
 
+Также вам может быть интересен [набор алгоритмов](https://github.com/ShkalikovOleh/OptAlg) из курса "Методы оптимизации".
+
 Используйте размещенные здесь материалы **исключительно** для проверки написанных вами решений.
 
 ## C++
 Курс "Программирование" на C++. Семестры
-[1(Структурное)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%201) и
+[1(Процедурное)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%201) и
 [2(ООП)](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%202) соответственно. Вариант 22 mod n, где n - количество заданий. Также присутствуют дополнительные лабораторные по [Python 3](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/C%2B%2B/part%201/LabsADD).
-
-Сам курс, честно говоря, нельзя назвать С++, так как все, что изучается, не более чем C 98 с классами и дженериками.
 
 Для сборки проектов используется [CMake](https://cmake.org/). В работах 2 семестра проверка работоспособности решений проверяется с помощью [Google Test](https://github.com/google/googletest)(не теряйте время в поисках main ;)).
 
@@ -68,11 +68,15 @@
 ## Numerical methods
 
 Курс численных методов. Рассмотрены, имплементированы и реализованы самые простые алгоритмы численно решения
-разного рода уравнений. Часть работ выполнена в интерактивных [Jupyter Notebook](https://jupyter.org/).
+разного рода уравнений, поиск собственных значений и векторов линейных операторов, алгоритмы интерполяции и численные методы интегрирования ОДУ. Часть работ выполнена в интерактивных [Jupyter Notebook](https://jupyter.org/), работы 2-4 на C++. Во всех работах имплементированы все предлагаемые разным вариантам алгоритмы.
 
 - [Polynomial roots](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Polynomial%20roots/report/report.pdf)
+- [Direct linear solvers](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Linear%20algebra%20methods/reports/direct/report.pdf)
+- [Iterative linear solvers](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Linear%20algebra%20methods/reports/iterative/report.pdf)
+- [Eigenvalues](https://github.com/ShkalikovOleh/Programming-Labs/tree/master/Numerical%20methods/Linear%20algebra%20methods/reports/eigen/report.pdf)
+- [Interpolation](https://github.com/ShkalikovOleh/Programming-Labs/blob/master/Numerical%20methods/Interpolation/Interpolation.ipynb)
 
 ## Ошибки и неточности
-Если Вы заметили какую-либо ошибку или неточность, то оставьте пожелуйста сообщений о ней, создав соответвующий issue с точным ее описанием, порядком выполнения действий для воспроизведения и "целевым" файлом.
+Если Вы заметили какую-либо ошибку или неточность, то оставьте, пожалуйста, сообщений о ней, создав соответвующий issue с точным ее описанием, порядком выполнения действий для воспроизведения и "целевым" файлом.
 
-Более того, буду рад принять ваши исправления и дополнения созданные с помощью механизма Pull Request.
+Более того, буду рад принять ваши исправления и дополнения, созданные с помощью механизма Pull Request.

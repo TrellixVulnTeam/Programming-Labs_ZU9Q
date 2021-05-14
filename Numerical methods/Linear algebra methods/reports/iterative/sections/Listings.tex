@@ -1,0 +1,46 @@
+\section*{\centering Додатки}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\lstset{
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    commentstyle=\color{green}\ttfamily,
+    morecomment=[l][\color{magenta}]{\#}
+    showstringspaces=false
+}
+
+Далі наведено програмний код імплементованих алгоритмів.
+Вихідний код, який було створено для даного практикума
+(у тому числі \LaTeX),
+можна знайти за наступним
+\href{https://github.com/ShkalikovOleh/Programming-Labs}{посиланням}.
+
+\subsubsection*{Класс для інкупсуляції роботи з пам'ятю}
+\lstinputlisting[language=C++]{../../src/src/Buffer.h}
+
+\subsubsection*{Клас векторів}
+\lstinputlisting[language=C++]{../../src/src/Vector.h}
+
+\subsubsection*{Клас матриць}
+\lstinputlisting[language=C++]{../../src/src/Matrix.h}
+
+\subsubsection*{Класи для оптимізації роботи з матрицями та векторами}
+\lstinputlisting[language=C++]{../../src/src/MatrixView.h}
+
+\subsubsection*{Утілити для представлення матриць та векторів у консолі}
+\lstinputlisting[language=C++]{../../src/src/Utils.h}
+
+\subsubsection*{Методи Гаусса}
+\lstinputlisting[language=C++]{../../src/src/Gauss.h}
+
+\subsubsection*{Процедура обрахунку коренів лінійної системи рівнянь}
+\lstinputlisting[language=C++]{../../src/src/Solvers.h}
+
+\subsubsection*{Розв'язання рівняння з практичної частини}
+\lstinputlisting[language=C++]{../../src/iterative.cpp}
